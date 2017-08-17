@@ -27,7 +27,7 @@ This command is requesting a compute node with a time limit of 1440 minutes (i.e
 
 Generally, we do not use any options for sbatch... we typically give it a script (i.e. a text file with commands inside) to run. Let's take a look at a template script:
 
-    wget https://ucdavis-bioinformatics-training.github.io/2017-June-RNA-Seq-Workshop/monday/slurm.sh
+    wget https://ucdavis-bioinformatics-training.github.io/2017-August-Variant-Analysis-Workshop/monday/slurm.sh
     cat slurm.sh
 
 The first line tells sbatch what scripting language the rest of the file is in. Any line that begins with a "#" symbol is ignored, except lines that begin with "#SBATCH". Those lines are for specifying sbatch options without having to type them on the command-line every time. In this script, on the next set of lines, we've put some code for calculating the time elapsed for the job. Then, we set up the variables for the rest of the script. In this case, "$1" refers to the first argument to the script. So, for example, when you would run this script, you would run it using a sample name like so (**don't actually run this command yet!**):
