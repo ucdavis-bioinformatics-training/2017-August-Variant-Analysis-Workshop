@@ -32,11 +32,11 @@ Generally, we do not use any options for sbatch... we typically give it a script
 
 The first line tells sbatch what scripting language the rest of the file is in. Any line that begins with a "#" symbol is ignored, except lines that begin with "#SBATCH". Those lines are for specifying sbatch options without having to type them on the command-line every time. In this script, on the next set of lines, we've put some code for calculating the time elapsed for the job. Then, we set up the variables for the rest of the script. In this case, "$1" refers to the first argument to the script. So, for example, when you would run this script, you would run it using a sample name like so (**don't actually run this command yet!**):
 
-    sbatch slurm.sh I892_S88
+    sbatch slurm.sh A8100
 
 So the script takes "I892_S88" and puts it into the variable "$1". We then copy that into another variable called "sample", for more clarity. Then we use "$sample" to construct the names of the forward (R1) and reverse (R2) read files. The utility of doing this is that we can reuse the same script to run every sample. So to run another sample, we would do this (**again, do not run this command!**):
 
-    sbatch slurm.sh C91_S79
+    sbatch slurm.sh A9004
 
 Now, after the variable section, we load the modules that we will be using for this job. Finally, we run the actual commands using the variable names we created earlier. "${sample}" gets replaced with the actual sample name when it runs. And then at the end we calculate and print out the elapsed time.
 

@@ -12,8 +12,10 @@ echo $HOSTNAME
 
 # setting up variables
 sample=$1
-R1=${sample}_L006_R1_001.fastq.gz
-R2=${sample}_L006_R2_001.fastq.gz
+R1=${sample}.chr18.R1.fastq
+R2=${sample}.chr18.R2.fastq
+
+echo $sample
 
 # loading modules
 module load scythe
