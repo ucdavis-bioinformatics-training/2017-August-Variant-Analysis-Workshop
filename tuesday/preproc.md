@@ -102,7 +102,7 @@ This will take approximately 5 minutes to run. You can use the 'top' or 'jobs' c
 
 **10\.** Once that is done, let's take a look at the differences between the input and output files. First look at the input file:
 
-    zless I894_S90_L006_R1_001.fastq.gz
+    less A8100.chr18.R1.fastq
 
 Let's search for the adapter sequence. Type '/' (a forward slash), and then type **AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC** (the first part of the forward adapter). Press Enter. This will search for the sequence in the file and highlight each time it is found. You can now type "n" to cycle through the places where it is found. When you are done, type "q" to exit. Now look at the output file:
 
