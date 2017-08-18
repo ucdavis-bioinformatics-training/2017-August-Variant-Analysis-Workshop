@@ -126,55 +126,27 @@ This will take about 5 minutes to run. If you look through the output files, you
 
 ---
 
-**12\.** We have run through adapter & quality trimming for one pair of files, but now we need to do it for all the files. For that we will be using the power of our cluster. You'll need to logout of your compute node and get back to the head node (cabernet). You'll need to download two cluster scripts [qa_task_array.sh](qa_task_array.sh) and [qa_for_loop.sh](qa_for_loop.sh) :
+**12\.** We have run through adapter & quality trimming for one pair of files, but now we need to do it for all the files. For that we will be using the power of our cluster. You'll need to download the [qa.sh](qa.sh) cluster script:
 
-    wget https://ucdavis-bioinformatics-training.github.io/2017-June-RNA-Seq-Workshop/tuesday/qa_task_array.sh
-    wget https://ucdavis-bioinformatics-training.github.io/2017-June-RNA-Seq-Workshop/tuesday/qa_for_loop.sh
+    wget https://ucdavis-bioinformatics-training.github.io/2017-August-Variant-Analysis-Workshop/tuesday/qa.sh
+
+Take a look at the script:
+
+    cat qa.sh
+
+This script is pretty much the same as the slurm.sh script you saw earlier.
+
+---
+
+**13\.** Now, let's run the script on all of our samples. First, make sure the script is executable:
+
+    chmod a+x qa.sh
     
-We will also need to generate a file called 'samples.txt' that contains all the sample IDs. We will extract this information from the filenames using 'cut'. First, get a listing of all the R1 files:
+Run the script using 'sbatch' on rest of the samples:
 
-    ls -1 *R1*.fastq.gz
-
-We will pipe this output to 'cut' to get the fields we want. Give cut the options "-d" with an underscore (usually above the minus sign on a keyboard) as the parameter, and the "-f" option with "1,2" as the parameter in order to get the first and second fields:
-
-    ls -1 *R1*.fastq.gz | cut -d_ -f1,2
-
-This gives us the all the sample IDs. Now we just need to redirect that output to a file:
-
-    ls -1 *R1*.fastq.gz | cut -d_ -f1,2 > samples.txt
-
-Use 'cat' to view the contents of the file to make sure it looks right:
-
-    cat samples.txt
-
----
-
-**13\.** There are many different ways to run jobs on the cluster and on the command-line... we are going to talk about two of the ways. Let's take a look at the two scripts we downloaded. The first is a script that uses Slurm task arrays to run all of the sickle and scythe steps per sample. The second is a script that uses a 'for loop' to loop through all of the samples and run the steps serially. This second script can be used when you are running all of your jobs on one machine. Look at the first script:
-
-    cat qa_task_array.sh
-
-You will see that it has a few extra sbatch options. The main option to understand is the "--array" option. This option creates a "task array" to run jobs. What that means is that Slurm will run this job however many times specified (in this case, 24) and for every time it runs this script will assign an environment variable called "$SLURM_ARRAY_TASK_ID". This variable will get assigned the number 1 for the first time the script runs, the number 2 the second time the script runs, etc... all the way to 24 (we are using 24 because there are 24 samples). This number is then used as an index into the samples.txt file that you created earlier. The command used to get the sample name is 'sed'. 'sed' is a program that does text editing, but in this case we are using it to get the Nth line of the samples.txt file. So, for example, this command:
-
-    sed "5q;d" samples.txt
-
-will return the 5th line of the samples.txt file. We put the command in backticks (usually below the tilde on a keyboard) which tells the script to run the command and put the output into the 'sample' variable. And instead of "5", we use the $SLURM_ARRAY_TASK_ID variable that will change for every run of the script. So, in effect, what happens is that the script gets run 24 times and each time the $SLURM_ARRAY_TASK_ID variable is assigned a new number, which is then used to get the sample ID from the samples.txt file.
-
----
-
-**14\.** Take a look at the other script:
-
-    cat qa_for_loop.sh
-
-This script has similar commands, but instead of using a task array, it is using a for loop. So this will loop through all the IDs in samples.txt and assign a new ID on every iteration of the loop. You should use this script if you will be running jobs NOT on a cluster, but on a single machine.
-
----
-
-**15\.** However, since we ARE running on a cluster we will use the first script to run all our jobs. Now, this step will take many hours to run, so you should probably only run it at the end of the day. First, make sure the script is executable:
-
-    chmod a+x qa_task_array.sh
-    
-Now, since we have already set up the task array to run, all we need to do is run the script:
-
-    sbatch qa_task_array.sh
+    sbatch qa.sh A9004
+    sbatch qa.sh A9006
+    sbatch qa.sh A9014
+    sbatch qa.sh A9018
 
 Now you can use 'squeue' to make sure your jobs are queued properly. Now, all you have to do is wait.
