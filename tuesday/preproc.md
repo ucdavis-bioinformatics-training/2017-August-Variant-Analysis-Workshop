@@ -6,14 +6,14 @@ In this exercise, we will learn how to preprocess our data for alignment. We wil
 **1\.** First, create a directory for the example in your home directory:
 
     cd
-    mkdir rnaseq_example
+    mkdir variant_example
 
 ---
 
 **2\.** Next, go into that directory and link to the directory for your raw data. This data comes from an Arabidopsis RNA-Seq project that we did:
 
-    cd rnaseq_example
-    ln -s /share/biocore-archive/Leveau_J_UCD/RNASeq_Arabidopsis_2016/00-RawData
+    cd variant_example
+    ln -s /share/biocore/workshops/Variant-Analysis-Workshop/00-RawData
 
 ---
 
@@ -30,18 +30,18 @@ In this exercise, we will learn how to preprocess our data for alignment. We wil
 
 ---
 
-**5\.** Pick a directory and go into it. Look at one of the files using the 'zless' command:
+**5\.** Pick a directory and go into it. Look at one of the files using the 'less' command:
 
-    cd I894_S90_L006
-    zless I894_S90_L006_R1_001.fastq.gz
+    cd A8100
+    less A8100.chr18.R1.fastq
 
-Make sure you can identify which lines correspond to a single read and which lines are the header, sequence, and quality values. Press 'q' to exit this screen. Then, let's figure out the number of reads in this file. A simple way to do that is to count the number of lines and divide by 4 (because the record of each read uses 4 lines). In order to do this, use "zcat" to output the uncompressed file and pipe that to "wc" to count the number of lines:
+Make sure you can identify which lines correspond to a single read and which lines are the header, sequence, and quality values. Press 'q' to exit this screen. Then, let's figure out the number of reads in this file. A simple way to do that is to count the number of lines and divide by 4 (because the record of each read uses 4 lines). In order to do this, use "cat" to output the file and pipe that to "wc" to count the number of lines:
 
-    zcat I894_S90_L006_R1_001.fastq.gz | wc -l
+    cat A8100.chr18.R1.fastq | wc -l
 
 Divide this number by 4 and you have the number of reads in this file. One more thing to try is to figure out the length of the reads without counting each nucleotide. First get the first 4 lines of the file (i.e. the first record):
 
-    zcat I894_S90_L006_R1_001.fastq.gz | head -4
+    cat A8100.chr18.R1.fastq | head -4
 
 Then, copy and paste the sequence line into the following command (replace [sequence] with the line):
 
@@ -51,7 +51,7 @@ This will give you the length of the read. See if you can figure out how this co
 
 ---
 
-**6\.** Now go back to your 'rnaseq_example' directory and create another directory called '01-Trimming':
+**6\.** Now go back to your 'variant_example' directory and create another directory called '01-Trimming':
 
     cd ~/rnaseq_example
     mkdir 01-Trimming
@@ -61,7 +61,7 @@ This will give you the length of the read. See if you can figure out how this co
 **7\.** Go into that directory (make sure your prompt shows that you are in the 01-Trimming directory) and link to all of the files you will be using:
 
     cd 01-Trimming
-    ln -s ../00-RawData/*/*.gz .
+    ln -s ../00-RawData/*/*.fastq .
     ls -l
 
 Now you should see a long listing of all the links you just created.
@@ -76,7 +76,7 @@ Now you should see a long listing of all the links you just created.
 FastQC creates html output that has graphics with quality control analysis. You'll need to create an output directory first and then run fastqc:
 
     mkdir fastqc_out
-    fastqc -t 6 -o fastqc_out I894_S90_L006_R1_001.fastq.gz
+    fastqc -t 4 -o fastqc_out A8100.chr18.R1.fastq
 
 When that is done, you will need to download the fastqc_out directory to your laptop and then use a browser look at the html file in it. We will go over the contents of the output in class.
 
@@ -89,12 +89,12 @@ When that is done, you will need to download the fastqc_out directory to your la
 
 Looking at the Usage you can see that scythe needs an adapter file and the sequence file. The adapter file will depend upon which kit you used... typically you can find the adapters from the sequencing provider. In this case, Illumina TruSeq adapters were used, so we have put the adapters (forward & reverse) in a file for you already ([adapters file](adapters.fasta)). You will have to use the "wget" command to copy the file to your class directory:
 
-    wget https://ucdavis-bioinformatics-training.github.io/2017-June-RNA-Seq-Workshop/tuesday/adapters.fasta
+    wget https://ucdavis-bioinformatics-training.github.io/2017-August-Variant-Analysis-Workshop/tuesday/adapters.fasta
 
 Now run scythe specifying an output file, the adapters file, and the input file. Add an ampersand at the end to run it in the background so that we can run the other file through scythe concurrently:
 
-    scythe -o I894_S90.scythe.R1.fastq -a adapters.fasta I894_S90_L006_R1_001.fastq.gz &
-    scythe -o I894_S90.scythe.R2.fastq -a adapters.fasta I894_S90_L006_R2_001.fastq.gz &
+    scythe -o A8100.chr18.R1.scythe.fastq -a adapters.fasta A8100.chr18.R1.fastq &
+    scythe -o A8100.chr18.R2.scythe.fastq -a adapters.fasta A8100.chr18.R2.fastq &
 
 This will take approximately 5 minutes to run. You can use the 'top' or 'jobs' commands to monitor the jobs. When the jobs finish, you will have two files that are adapter trimmed.
 

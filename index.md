@@ -14,7 +14,6 @@ Tuesday
 
 * [Files and Filetypes for RNA-Seq](tuesday/filetypes) (talk)
 * [Experimental Design and Cost Estimation](tuesday/ExperimentalDesign.pdf) (talk)
-* [Workshop dataset talk (Emily Rustad)](tuesday/Emily-RNA-seq_data.pdf)
 * [Philosophy of Preprocessing Data](tuesday/Preprocessing.pdf) (talk)
 * [Preprocessing Data hands-on](tuesday/preproc)
 
