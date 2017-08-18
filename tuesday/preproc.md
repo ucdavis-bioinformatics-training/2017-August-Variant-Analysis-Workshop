@@ -104,11 +104,11 @@ This will take approximately 5 minutes to run. You can use the 'top' or 'jobs' c
 
     less A8100.chr18.R1.fastq
 
-Let's search for the adapter sequence. Type '/' (a forward slash), and then type **AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC** (the first part of the forward adapter). Press Enter. This will search for the sequence in the file and highlight each time it is found. You can now type "n" to cycle through the places where it is found. When you are done, type "q" to exit. Now look at the output file:
+Let's search for the adapter sequence. Type '/' (a forward slash), and then type **AGATCGGAAGAGCACACGTCTG** (the first part of the forward adapter). Press Enter. This will search for the sequence in the file and highlight each time it is found. You can now type "n" to cycle through the places where it is found. When you are done, type "q" to exit. Now look at the output file:
 
     less A8100.chr18.R1.scythe.fastq
 
-If you scroll through the data (using the spacebar), you will see that some of the sequences have been trimmed. Now, try searching for **AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC** again. You shouldn't find it. You may need to use Control-C to get out of the search and then "q" to exit the 'less' screen.
+If you scroll through the data (using the spacebar), you will see that some of the sequences have been trimmed. Now, try searching for **AGATCGGAAGAGCACACGTCTG** again. You shouldn't find it. You may need to use Control-C to get out of the search and then "q" to exit the 'less' screen.
 
 ---
 
@@ -120,7 +120,7 @@ If you scroll through the data (using the spacebar), you will see that some of t
 
 Our reads are paired-end reads in separate files, so we will be using the "-f", "-r", "-o", and "-p" options. Remember that you will be using the scythe output files as input to this step.
 
-    sickle pe -f I894_S90.scythe.R1.fastq -r I894_S90.scythe.R2.fastq -o I894_S90.sickle.R1.fastq -p I894_S90.sickle.R2.fastq -s I894_S90.singles.fastq -t sanger
+    sickle pe -f A8100.chr18.R1.scythe.fastq -r A8100.chr18.R2.scythe.fastq -o A8100.chr18.R1.sickle.fastq -p A8100.chr18.R2.sickle.fastq -s A8100.singles.fastq -t sanger
 
 This will take about 5 minutes to run. If you look through the output files, you will see reads trimmed for low quality. Sickle produces three files, two paired-end quality trimmed files, and a singles file where reads are kept where only one of the pair passed the thresholds. Sickle will output information about how many records it started with and how many were kept/discarded.
 
