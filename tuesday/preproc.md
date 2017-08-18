@@ -120,7 +120,7 @@ If you scroll through the data (using the spacebar), you will see that some of t
 
 Our reads are paired-end reads in separate files, so we will be using the "-f", "-r", "-o", and "-p" options. Remember that you will be using the scythe output files as input to this step.
 
-    sickle pe -f A8100.chr18.R1.scythe.fastq -r A8100.chr18.R2.scythe.fastq -o A8100.chr18.R1.sickle.fastq -p A8100.chr18.R2.sickle.fastq -s A8100.singles.fastq -t sanger
+    sickle pe -f A8100.chr18.R1.scythe.fastq -r A8100.chr18.R2.scythe.fastq -o A8100.chr18.R1.sickle.fastq -p A8100.chr18.R2.sickle.fastq -s A8100.chr18.singles.fastq -t sanger
 
 This will take about 5 minutes to run. If you look through the output files, you will see reads trimmed for low quality. Sickle produces three files, two paired-end quality trimmed files, and a singles file where reads are kept where only one of the pair passed the thresholds. Sickle will output information about how many records it started with and how many were kept/discarded.
 
