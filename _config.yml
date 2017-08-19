@@ -2,4 +2,4 @@ theme: jekyll-theme-cayman
 title: 'UC Davis Bioinformatics Core 2017 Variant Analysis Workshop'
 tagline: 'August 21-25, 2017'
 name: 'UC Davis Bioinformatics Core 2017 Variant Analysis Workshop'
-
+future: true
