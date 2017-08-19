@@ -168,7 +168,7 @@ Choose all of the ROI.bam files at once (use the <Ctrl> key to choose multiple):
 
 -----
 
-**11.\.** This will load all of the alignment, however, you will not see anything until you zoom in. Before we do that, we are going to add coverage tracks that we can see at all zoom levels. Under "Tools" choose "Run igvtools":
+**11\.** This will load all of the alignment, however, you will not see anything until you zoom in. Before we do that, we are going to add coverage tracks that we can see at all zoom levels. Under "Tools" choose "Run igvtools":
 
 ![igv7](igv07.png)
 
