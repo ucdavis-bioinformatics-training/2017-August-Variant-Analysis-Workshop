@@ -6,7 +6,7 @@ Joe Fass
 jnfass@ucdavis.edu
 
 
-Download the slides [here](CLIntro.pdf).
+Download the slides [here](CLintro.pdf).
 
 
 Getting There
