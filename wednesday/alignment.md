@@ -3,6 +3,10 @@ Alignment of High-Throughput Sequencing Data using BWA
 
 In this section, we will use BWA (Burrows-Wheeler Aligner) to align all of our trimmed reads to a genome. We will align both the paired-end and single-end reads to the genome separately, and then merged the two alignments together. We will do this for all the samples. Finally, we will visualize the alignments using IGV.
 
+![fc03](fc03.png)
+
+---
+
 **1\.** First go back to your variant_example directory and create a new directory called '02-Alignment':
 
     cd ~/variant_example
