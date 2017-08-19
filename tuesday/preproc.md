@@ -3,6 +3,10 @@ Preprocessing Data
 
 In this exercise, we will learn how to preprocess our data for alignment. We will be doing adapter trimming and quality trimming. First we will remove adapters from our raw sequences and then we will trim sequences with low quality.
 
+![fc02](fc02.png)
+
+---
+
 **1\.** First, create a directory for the example in your home directory:
 
     cd
