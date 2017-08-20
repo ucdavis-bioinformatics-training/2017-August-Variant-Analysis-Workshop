@@ -135,7 +135,7 @@ Now this command is running in the background and will continue to run even if y
 
     tail -f A8100.chr18.nohup
 
-Use <Ctrl>-C to exit the tail command.
+Use \<Ctrl\>-C to exit the tail command.
 
 -----
 

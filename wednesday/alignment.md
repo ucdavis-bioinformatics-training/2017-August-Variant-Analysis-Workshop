@@ -166,7 +166,7 @@ Find your genome file on your laptop and choose that:
 
 ![igv5](igv05.png)
 
-Choose all of the ROI.bam files at once (use the <Ctrl> key to choose multiple):
+Choose all of the ROI.bam files at once (use the \<Ctrl\> key to choose multiple):
 
 ![igv6](igv06.png)
 
