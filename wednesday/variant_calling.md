@@ -56,8 +56,24 @@ Now, run the script using sbatch:
     module load delly
     delly --help
 
-Now run delly giving it a reference and all of our bam files:
+Now, run delly giving it a reference and all of our bam files:
 
     delly -o delly.chr18.all.vcf -g ../ref/chr18.fa *.all.bam
 
 This should take about 5 minutes to run.
+
+---
+
+**4\.** Take a look at the output:
+
+    less delly.chr18.all.vcf
+
+We want to just get the variants that "PASS", not the "LowQual" ones. So we will use a program called 'awk' to do that. 'awk' is a simple language designed for text processing in Unix. The command below looks at the 7th column ($7) on a line, and if the value of that column is "PASS", it prints out the line.
+
+    cat delly.chr18.all.vcf | awk '{ if($7=="PASS") print}' > delly.chr18.filtered.vcf
+
+Take a look at the filtered file. It should only contain "PASS" variants:
+
+    less delly.chr18.filtered.vcf
+
+The deletion from the paper is in this file. See if you can find it. Also, look at the [VCF specification](https://samtools.github.io/hts-specs/VCFv4.2.pdf) to get more details of the different fields.
