@@ -31,21 +31,11 @@ Wednesday
 Thursday
 ==========
 
-* [Intro to R](thursday/Intro2R.md)
-* [Differential Gene Expression Statistics](thursday/Differential_Expression_Analysis.pdf) (talk)
-* [Alignments to Counts](thursday/counts)
-* [DE Analysis: counts to lists of DE genes](thursday/de-analysis.md)
-* [Bacterial RNASeq](thursday/BacterialRNASeq.pdf) (talk)
 
 
 Friday
 =======
 
-* [Transript Assembly/Annotation](friday/Friday_June_2017_MB_RNASeq_Assembly.pdf) (talk)
-* GO/KEGG Pathway Enrichment: [GO](friday/GO.R), [KEGG](friday/KEGG.R)
-* [Single Cell RNA-Seq](friday/scRNAseq.pdf)  (talk)
-* [Generating figures](friday/Figures/plot.R)
-* [Closing thoughts](friday/Closing_Thoughts.pdf)
 
 Evaluation!
 ============
