@@ -24,3 +24,40 @@ Now, let's link in the relevant files from our alignments, along with their indi
 
     module load freebayes
     freebayes -h
+
+Freebayes has many options, but we are going to run with the defaults. You can set the ploidy as an option, but the default is 2 (i.e. diploid). Also, even with our reduced data set, freebayes will take about 6 hours to run. So, we will run it on the cluster. Download the Slurm script for freebayes:
+
+    wget https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2017-August-Variant-Analysis-Workshop/master/wednesday/fb.sh
+
+Change the permissions:
+
+    chmod a+x fb.sh
+
+Take a look at the file:
+
+    cat fb.sh
+
+The way that we are running freebayes uses, as input, a text file containing a list of BAMs to analyze (the "-L" option). You will need to create this text file before you can run the script:
+
+    ls *.all.bam > bamlist.txt
+
+Check the file and make sure it looks right:
+
+    cat bamlist.txt
+
+Now, run the script using sbatch:
+
+    sbatch fb.sh bamlist.txt
+
+---
+
+**3\.** Now, let's run delly. We are going to use delly to find large deletions in our data. 
+
+    module load delly
+    delly --help
+
+Now run delly giving it a reference and all of our bam files:
+
+    delly -o delly.chr18.all.vcf -g ../ref/chr18.fa *.all.bam
+
+This should take about 5 minutes to run.
