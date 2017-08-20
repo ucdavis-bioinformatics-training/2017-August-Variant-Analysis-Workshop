@@ -125,11 +125,17 @@ This step generates a covariates file. The covariates file is used in the next s
 
 -----
 
-**9\.**. Now we are ready to do the initial per sample variant calling using "HaplotypeCaller". HaplotypeCaller first identifies regions of interest, determines haplotypes by local re-assembly of the regions, determines the likelihoods of the genotypes, and finally assigns sample genotypes. The input BAM file is the output BAM from the previous step. We will be outputting GVCF files using the -ERC option (Emit Reference Confidence). GVCF files are basically VCF files except with variant information for every position in the genome, regardless of whether there is a variant there or not. These GVCF files are used to make it easier to call genotypes across samples and also make it easier to add new samples into your experiment.
+**9\.**. Now we are ready to do the initial per sample variant calling using "HaplotypeCaller". HaplotypeCaller first identifies regions of interest, determines haplotypes by local re-assembly of the regions, determines the likelihoods of the genotypes, and finally assigns sample genotypes. The input BAM file is the output BAM from the previous step. We will be outputting GVCF files using the -ERC option (Emit Reference Confidence). GVCF files are basically VCF files except with variant information for every position in the genome, regardless of whether there is a variant there or not. These GVCF files are used to make it easier to call genotypes across samples and also make it easier to add new samples into your experiment. However, this step can take a long time to run, so we want to run it in the background and using a command called 'nohup' that will allow the command to continue even after you log out. We will also redirect the info output to a file.
 
-    gatk -T HaplotypeCaller \
+    nohup gatk -T HaplotypeCaller \
     -R ../ref/chr18.fa -ERC GVCF \
-    -I A8100.chr18.recalibrated.bam -o A8100.chr18.g.vcf
+    -I A8100.chr18.recalibrated.bam -o A8100.chr18.g.vcf &> A8100.chr18.nohup &
+
+Now this command is running in the background and will continue to run even if you log out. It will take about 4 hours to run. You can watch the progress using the 'tail' command:
+
+    tail -f A8100.chr18.nohup
+
+Use <Ctrl>-C to exit the tail command.
 
 -----
 
