@@ -40,7 +40,7 @@ Look at the directories created and then go into the 'snpEff' directory:
 
 And then add the following lines to the file in the "Non-Standard Databases" section:
 
-> # chr18
+> \# chr18
 > chr18.genome : chr18
 
 Save and Exit.
