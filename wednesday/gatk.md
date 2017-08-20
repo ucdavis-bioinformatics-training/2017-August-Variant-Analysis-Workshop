@@ -139,6 +139,18 @@ Use <Ctrl>-C to exit the tail command.
 
 -----
 
+**10\.** The next step is to run all of the previous commands on the rest of the samples. To do that we need to download a Slurm script:
+
+    wget https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2017-August-Variant-Analysis-Workshop/master/wednesday/gatk.sh
+
+Change the permissions:
+
+    chmod a+x gatk.sh
+
+Take a look at it:
+
+    cat gatk.sh
+
 15. Now that we have generated our GVCF file, we need to run "GenotypeGVCFs" to join together multiple samples' GVCF files into one VCF file with aggregated genotype likelihoods and with re-annotation. Even though we only have one sample in this exercise, typically you will have more than one, in which case you would generate gVCFs for each sample using HaplotypeCaller separately and then specify all of the gVCFs on this command line using the "--variant" option multiple times. Since we only have one sample, we will only use the "--variant" option once. We will use our known SNPs file as dbsnp and use low thresholds for calling variants::
 
      gatk -T GenotypeGVCFs \

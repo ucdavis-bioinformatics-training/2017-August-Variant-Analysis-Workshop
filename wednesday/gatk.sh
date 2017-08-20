@@ -17,8 +17,8 @@ module load gatk
 
 # KNOWN_SNPS must be in reference order
 # REF must end in .fa or .fasta
-REF=/share/biocore/joshi/projects/workshops/horse_data_workshop/reduced_dataset/ref/chr18.fa
-KNOWN_SNPS=/share/biocore/joshi/projects/workshops/horse_data_workshop/reduced_dataset/ref/chr18.vcf
+REF=../ref/chr18.fa
+KNOWN_SNPS=../ref/chr18.vcf
 
 echo "marking duplicates"
 # mark duplicates, assume sorted, has problems with unmapped reads with MQ!=0, so validation needs to be lenient
