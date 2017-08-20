@@ -151,45 +151,59 @@ Take a look at it:
 
     cat gatk.sh
 
-15. Now that we have generated our GVCF file, we need to run "GenotypeGVCFs" to join together multiple samples' GVCF files into one VCF file with aggregated genotype likelihoods and with re-annotation. Even though we only have one sample in this exercise, typically you will have more than one, in which case you would generate gVCFs for each sample using HaplotypeCaller separately and then specify all of the gVCFs on this command line using the "--variant" option multiple times. Since we only have one sample, we will only use the "--variant" option once. We will use our known SNPs file as dbsnp and use low thresholds for calling variants::
+Now, run all the other samples using sbatch:
 
-     gatk -T GenotypeGVCFs \
-         -R CanFam3.1_chr1.fa -stand_call_conf 4 -stand_emit_conf 4 \
-         --dbsnp CanFam3.1.79_chr1.known_variants.vcf \
-         --variant reads.vs.canFam3.chr1.gvcf --out reads.vs.canFam3.chr1.vcf
+    sbatch gatk.sh A9004
+    sbatch gatk.sh A9006
+    sbatch gatk.sh A9014
+    sbatch gatk.sh A9018
 
-  This will produce a regular VCF file which we will further filter in the following steps. Take a look at the file::
+This will take ~7 hours to run. Once all of the samples finish, you can move on to the next step, which will probably be tomorrow.
 
-    less reads.vs.canFam3.chr1.vcf
+---
+
+**11\.** Now that we have generated our GVCF files, we need to run "GenotypeGVCFs" to join together multiple samples' GVCF files into one VCF file with aggregated genotype likelihoods and with re-annotation. We will use the "--variant" option once for each GVCF file and we will use our known SNPs file as dbsnp and use low thresholds for calling variants:
+
+    gatk -T GenotypeGVCFs -R ../ref/chr18.fa --dbsnp ../ref/chr18.vcf \
+    --variant A8100.chr18.g.vcf \
+    --variant A9004.chr18.g.vcf \
+    --variant A9006.chr18.g.vcf \
+    --variant A9014.chr18.g.vcf \
+    --variant A9018.chr18.g.vcf \
+    --out all.chr18.vcf
+
+This will take about 30 minutes. It will produce a regular VCF file which we will further filter in the following steps. Take a look at the file:
+
+    less all.chr18.vcf
 
 -----
 
-16. After the variant calling in the previous step, we will use "SelectVariants" to generate the output that only contains SNP variants. The input variant file should be the output from the previous step. Choose "SNP" as the selectType, which will get all variants that are SNPs::
+**12\.** After the variant calling in the previous step, we will use "SelectVariants" to generate the output that only contains SNP variants. The input variant file should be the output from the previous step. Choose "SNP" as the selectType, which will get all variants that are SNPs:
 
-     gatk -T SelectVariants \
-         -R CanFam3.1_chr1.fa --variant reads.vs.canFam3.chr1.vcf -selectType SNP \
-         -o reads.vs.canFam3.chr1.snps.vcf
+    gatk -T SelectVariants \
+    -R ../ref/chr18.fa --variant all.chr18.vcf -selectType SNP \
+    -o snps.chr18.vcf
 
-  The variant file generated contains only the SNP variants called by GenotypeGVCFs.
+The variant file generated contains only the SNP variants called by GenotypeGVCFs.
 
 -----
 
-17. After the initial variant calling, a filter process needs to be done to generate a list of real variants using some type of criteria. Here we are using a set of criteria on the SNPs. We will use the "VariantFiltration" subprogram from GATK. The variant input file should be the SNP variant (VCF) file from the previous step. Our filter expression is **QD<2.0||MQ<40.0||FS>60.0||HaplotypeScore>13.0||MQRankSum<-12.5||ReadPosRankSum<-8.0**, which we get from looking at the GATK best practices for small datasets. The "double-pipe" (||) symbol is a logical OR, meaning that if any of those criteria are true then the variant will be tagged. Choose your canonical annotation file (CanFam3.1.79_chr1.known_variants.vcf) as the Mask ROD file and give the filter a name::
+**13\.** After the initial variant calling, a filter process needs to be done to generate a list of good variants using some type of criteria. Here we are using a set of criteria on the SNPs. We will use the "VariantFiltration" subprogram from GATK. The variant input file should be the SNP variant (VCF) file from the previous step. Our filter expression is **QD<2.0||MQ<40.0||FS>60.0||MQRankSum<-12.5||ReadPosRankSum<-8.0**, which we get from looking at the GATK best practices for small datasets. The "double-pipe" (||) symbol is a logical OR, meaning that if any of those criteria are true then the variant will be tagged. Choose your canonical annotation file (chr18.vcf) as the Mask ROD file and give the filter a name:
 
      gatk -T VariantFiltration \
-         -R CanFam3.1_chr1.fa --variant reads.vs.canFam3.chr1.snps.vcf \
-         --mask CanFam3.1.79_chr1.known_variants.vcf --filterName "snpsfilter" \
-         --filterExpression "QD<2.0||MQ<40.0||FS>60.0||HaplotypeScore>13.0||MQRankSum<-12.5||ReadPosRankSum<-8.0" \
-         --out reads.vs.canFam3.chr1.snps.tagged.vcf
+     -R ../ref/chr18.fa --variant snps.chr18.vcf \
+     --mask ../ref/chr18.vcf --filterName "snpsfilter" \
+     --filterExpression "QD<2.0||MQ<40.0||FS>60.0||MQRankSum<-12.5||ReadPosRankSum<-8.0" \
+     --out snps.chr18.tagged.vcf &> varfilter.out &
 
-  This step will tag the variants with a "snpsfilter" tag if they did not pass and a "PASS" tag if they did. It does **not** remove the variants that did not pass.
+We put the informational output to a file and run it in the background. This step will tag the variants with a "snpsfilter" tag if they did not pass and a "PASS" tag if they did. It does **not** remove the variants that did not pass.
  
 -----
 
-18. After the filtration step, we need to further select only the variants that have passed the filter by running "SelectVariants" again. The input variant file is the output variant file from the previous step. Use **vc.isNotFiltered()** (including the parentheses) as the "select expression". This "select expression" was found by searching and reading help forums. Leave the other parameters as default::
+**14\.** After the filtration step, we need to further select only the variants that have passed the filter by running "SelectVariants" again. The input variant file is the output variant file from the previous step. Use **vc.isNotFiltered()** (including the parentheses) as the "select expression". This "select expression" was found by searching and reading help forums. Leave the other parameters as default::
 
      gatk -T SelectVariants \
-         -R CanFam3.1_chr1.fa --variant reads.vs.canFam3.chr1.snps.tagged.vcf \
-         -select 'vc.isNotFiltered()' -o reads.vs.canFam3.chr1.snps.filtered.vcf
+     -R ../ref/chr18.fa --variant snps.chr18.tagged.vcf \
+     -select 'vc.isNotFiltered()' -o snps.chr18.filtered.vcf
 
-  Now you have a file which contains SNPs which passed the filters. We can now use these for the next stage in our analysis, which is Effect Prediction.
+Now you have a file which contains SNPs which passed the filters. We can now use these for the next stage in our analysis, which is Effect Prediction.
