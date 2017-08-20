@@ -32,8 +32,8 @@ Wednesday
 Thursday
 ==========
 
-* [Variant Effect Prediction] 
-* [Variant Filtering]
+* [Variant Effect Prediction](thursday/snpeff)
+* [Variant Filtering](thursday/snpsift)
 * [SNPs/CNVs]
 
 
