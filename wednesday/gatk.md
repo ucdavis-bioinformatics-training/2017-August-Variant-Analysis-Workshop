@@ -188,7 +188,7 @@ The variant file generated contains only the SNP variants called by GenotypeGVCF
 
 -----
 
-**13\.** After the initial variant calling, a filter process needs to be done to generate a list of good variants using some type of criteria. Here we are using a set of criteria on the SNPs. We will use the "VariantFiltration" subprogram from GATK. The variant input file should be the SNP variant (VCF) file from the previous step. Our filter expression is **QD<2.0||MQ<40.0||FS>60.0||MQRankSum<-12.5||ReadPosRankSum<-8.0**, which we get from looking at the GATK best practices for small datasets. The "double-pipe" (||) symbol is a logical OR, meaning that if any of those criteria are true then the variant will be tagged. Choose your canonical annotation file (chr18.vcf) as the Mask ROD file and give the filter a name:
+**13\.** After the initial variant calling, a filter process needs to be done to generate a list of good variants using some type of criteria. Here we are using a set of criteria on the SNPs. We will use the "VariantFiltration" subprogram from GATK. The variant input file should be the SNP variant (VCF) file from the previous step. Our filter expression is **QD<2.0\|\|MQ<40.0\|\|FS>60.0\|\|MQRankSum<-12.5\|\|ReadPosRankSum<-8.0**, which we get from looking at the GATK best practices for small datasets. The "double-pipe" (\|\|) symbol is a logical OR, meaning that if any of those criteria are true then the variant will be tagged. Choose your canonical annotation file (chr18.vcf) as the Mask ROD file and give the filter a name:
 
     gatk -T VariantFiltration \
     -R ../ref/chr18.fa --variant snps.chr18.vcf \
