@@ -63,7 +63,45 @@ Now copy over the reference file, but call it "sequences.fa":
     cp ../ref/chr18.fa sequences.fa
     cd data/chr18
 
-Now copy over the reference file, but call it "sequences.fa":
+Now, link to the reference file, but call it "sequences.fa":
 
-    cp ../../../../ref/chr18.fa sequences.fa
+    ln -s ../../../../ref/chr18.fa sequences.fa
+
+And get the annotation file:
+
+    wget https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2017-August-Variant-Analysis-Workshop/master/thursday/chr18.gtf
+
+Change its name to 'genes.gtf':
+
+    mv chr18.gtf genes.gtf
+
+---
+
+**5\.** We are ready to create the database. Go back to the snpEff directory and run the 'build' command for snpeff:
+
+    cd ../..
+    java -jar snpEff.jar build -gtf22 -v chr18
+
+Now we're ready to do effect prediction.
+
+---
+
+**6\.** Go back to your '05-snpeff' directory and look at the options for the effect prediction command for snpeff:
+
+    cd ..
+    java -jar snpEff/snpEff.jar eff -h
+
+Now run the prediction:
+
+    java -jar snpEff/snpEff.jar eff chr18 all.chr18.vcf > snpeff.chr18.vcf
+
+This will take about 8 minutes to run.
+
+---
+
+**7\.** Take a look at the output file:
+
+    less snpeff.chr18.vcf
+
+Also, download (to your laptop) and take a look at the 'snpEff_summary.html' file. The VCF file is the same file as the input, except every variant has an 'ANN' field added to it. Look at the [snpeff docs](http://snpeff.sourceforge.net/SnpEff_manual.html#input) and [this detailed pdf](http://snpeff.sourceforge.net/VCFannotationformat_v1.0.pdf) to get information about the format of the 'ANN' field.
 
