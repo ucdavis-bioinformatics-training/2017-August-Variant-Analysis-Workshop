@@ -24,6 +24,8 @@ Wednesday
 * [Intro to Sequencing, Lutz Froenicke](wednesday/Bioinformatics_Workshop_2017_RNA_s_o_Sequencing.pdf) (talk)
 * [Aligners](wednesday/aligners) (talk)
 * [Aligning Data and IGV](wednesday/alignment)
+* [Variant calling with Freebayes & Delly](wednesday/variant_calling)
+* [Variant calling with GATK](wednesday/gatk)
 
 
 Thursday
