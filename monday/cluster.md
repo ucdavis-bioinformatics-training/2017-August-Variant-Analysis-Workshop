@@ -5,11 +5,11 @@ Running jobs on the cluster and using modules
 
 ![cluster diagram](cluster_diagram.png)
 
-The basic architecture of a compute cluster consists of a "head node", which is the computer from which a user submits jobs to run, and "compute nodes", which are a large number of computers on which the jobs can be run. It is also possible to log into a compute node and run jobs directly from there. **Never run a job directly on the head node!**
+The basic architecture of a compute cluster consists of a "head node", which is the computer from which a user submits jobs to run, and "compute nodes", which are a large number of computers on which the jobs can be run. It is also possible to log into a compute node and run jobs directly from there. **Never run a job directly on the head node!** However, that being said, we will be logging into a server that isn't the head node in order to run our jobs. This server (ganesh.genomecenter.ucdavis.edu) is owned by the Bioinformatics Core and can be used to run jobs on the cluster and can also be used to run jobs directly on it.
 
 ---
 
-**2\.** Now, let's look at the commands. First, log into the head node (cabernet.genomecenter.ucdavis.edu). The two main commands we will be using are srun and sbatch. 'srun' is used to run a single command on a compute node or to log into a compute node directly. Take a look at the options to srun:
+**2\.** Now, let's look at the commands. First, log into ganesh (ganesh.genomecenter.ucdavis.edu). The main command we will be using is 'sbatch', but you should also know about the command 'srun'. 'srun' is used to run a single command on a compute node or to log into a compute node directly. Take a look at the options to srun:
 
     srun --help
 
@@ -17,7 +17,9 @@ The way we have set up our cluster requires that you specify a time limit and ma
 
     srun -t 1440 -c 4 -n 1 --mem 8000 --reservation workshop --pty /bin/bash
 
-This command is requesting a compute node with a time limit of 1440 minutes (i.e. 24 hours), one processor, a max memory of 8000Mb (i.e. 8Gb), using a compute reservation for this workshop (an option you would not normally use), and then finally, specifying a shell to run in a terminal ("--pty" option). Run this command to get to a compute node when you want to run jobs on the command-line directly.
+This command is requesting a compute node with a time limit of 1440 minutes (i.e. 24 hours), one processor, a max memory of 8000Mb (i.e. 8Gb), using a compute reservation for this workshop (an option you would not normally use), and then finally, specifying a shell to run in a terminal ("--pty" option). Run this command to get to a compute node when you want to run jobs on the command-line directly. Exit from this shell:
+
+    exit
 
 ---
 
@@ -34,7 +36,7 @@ The first line tells sbatch what scripting language the rest of the file is in. 
 
     sbatch slurm.sh A8100
 
-So the script takes "I892_S88" and puts it into the variable "$1". We then copy that into another variable called "sample", for more clarity. Then we use "$sample" to construct the names of the forward (R1) and reverse (R2) read files. The utility of doing this is that we can reuse the same script to run every sample. So to run another sample, we would do this (**again, do not run this command!**):
+So the script takes "A8100" and puts it into the variable "$1". We then copy that into another variable called "sample", for more clarity. Then we use "$sample" to construct the names of the forward (R1) and reverse (R2) read files. The utility of doing this is that we can reuse the same script to run every sample. So to run another sample, we would do this (**again, do not run this command!**):
 
     sbatch slurm.sh A9004
 
