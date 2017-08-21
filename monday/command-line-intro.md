@@ -63,16 +63,16 @@ Let's run our first command ... because one of the first things that's good to k
     <spacebar>  # next page
     <q>  # quits from more, less, 'man' pages, etc.
 
-So, ^C, ^D, 'q', and (from above) 'exit'. Generally can't hurt to try until one of them works! Now that we've seen the 'more' and 'less' "paginators" (programs that display output from other programs in pages, instead of all at once), here's how to move around while in one of them.
+So, ^C, ^D, 'q', and (from above) 'exit'. Generally can't hurt to try until one of them works! Now that we've seen the 'less' "paginator" (program that display output from other programs in pages, instead of all at once), here's how to move around while in it.
 
     yes | less  # pipe to 'less' paginator, instead of 'more'
     <spacebar>
     <arrow keys, pgup, pgdn>  # forward or back through file
     g *or* G  # beginning or end of file
-    /es  # '/' enters search mode, "es" is pattern sought for (could be any string)
+    /es  # '/' enters search mode, "es" is pattern looked for (could be any string)
     /s  
     /no
-    # After searching for a pattern, using the '/' key, you can use:
+    # After searching for some text, using the '/' key, you can use:
     n *or* N  # next or previous pattern match
     q  # to quit
 
@@ -80,7 +80,7 @@ So, ^C, ^D, 'q', and (from above) 'exit'. Generally can't hurt to try until one 
 You've Got Options
 -------------------
 
-The reason you'll appreciate 'less' is that it's the default paginator for the 'man' command. 'Man' stands for "manual," and it's the main way to get more detail on any of the commands we'll introduce today. Each command can act as a basic tool, or you can add "options" or "flags" that modify the default behavior of the tool. These flags come in the form of '-v' ... or, when it's a more descriptive word, '--verbose' ... that's a common (but not universal) one that tells a tool that you want it to give you output with more detail. Sometimes, options require specifying amounts or strings, like '-o results.txt' or '--output results.txt' ... or '-n 4' or '--numCPUs 4'. Let's try some, and see what the man page for the "list files" command 'ls' is like.
+One reason you'll appreciate 'less' is that it's the default paginator for the 'man' command. 'Man' stands for "manual," and it's the main way to get more detail on any of the commands we'll introduce today. Each command can act as a basic tool, or you can add "options" or "flags" that modify the default behavior of the tool. These flags come in the form of '-v' ... or, when it's a more descriptive word, two dashes: '--verbose' ... that's a common (but not universal) one that tells a tool that you want it to give you output with more detail. Sometimes, options require specifying amounts or strings, like '-o results.txt' or '--output results.txt' ... or '-n 4' or '--numCPUs 4'. Let's try some, and see what the man page for the "list files" command 'ls' is like.
 
     ls -R /software
     # ack! too much going to the screen!
@@ -89,7 +89,7 @@ The reason you'll appreciate 'less' is that it's the default paginator for the '
     # how do I know which options do what?
     man ls
     # navigate like in "less" (up/down,pgup/dn,g,G,/pattern,n,N,q)
-    # try the following:
+    # look up and try the following:
     ls -l
     ls -a
     ls -l -a
