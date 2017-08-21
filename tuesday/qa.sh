@@ -5,7 +5,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --time=180
 #SBATCH --mem=2000 # Memory pool for all cores (see also --mem-per-cpu)
-#    SBATCH --reservation=workshop
+#SBATCH --reservation=workshop
 
 
 begin=`date +%s`
