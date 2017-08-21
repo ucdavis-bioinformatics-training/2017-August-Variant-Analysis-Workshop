@@ -11,7 +11,7 @@ Getting There
 
 Secure SHell ... ssh.
 
-    ssh [class#@]cabernet.genomecenter.ucdavis.edu
+    ssh [class#@]ganesh.genomecenter.ucdavis.edu
 
 You should immediately "log in" (start an interactive srun session) to the cluster, to avoid accidentally running anything that takes any processor time or memory on the shared head node (cabernet).
 
