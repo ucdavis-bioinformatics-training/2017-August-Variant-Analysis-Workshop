@@ -11,7 +11,7 @@ Getting There
 
 Secure SHell ... ssh.
 
-    ssh [class#@]cabernet.genomecenter.ucdavis.edu
+    ssh [class#@]ganesh.genomecenter.ucdavis.edu
 
 You should immediately "log in" (start an interactive srun session) to the cluster, to avoid accidentally running anything that takes any processor time or memory on the shared head node (cabernet).
 
@@ -69,8 +69,8 @@ So, ^C, ^D, 'q', and (from above) 'exit'. Generally can't hurt to try until one 
     <spacebar>
     <arrow keys, pgup, pgdn>  # forward or back through file
     g *or* G  # beginning or end of file
-    /es  # '/' enters search mode, "es" is pattern looked for (could be any string)
-    /s  
+    /s  # '/' enters search mode, "es" is pattern looked for (could be any string)
+    /y 
     /no
     # After searching for some text, using the '/' key, you can use:
     n *or* N  # next or previous pattern match
@@ -155,9 +155,9 @@ Using tab-completion will literally save your life. Hours of it. A single <tab> 
     touch one seven september  # create three empty files using 'touch' command
     cat o<tab><no enter>  # will complete to "one"
     <enter>
-    cat s<tab><no enter>  # nothing!
+    cat s<tab><no enter>  # completes up to 'se' since that's in common between seven and september
     <tab><no enter>  # this second tab should cause listing of seven and september
-    ev<tab><no enter>  # should complete to seven
+    v<tab><no enter>  # now it's unique to, and should complete to seven
     <enter>  # runs "cat seven" command
     # we often literally autocomplete commands letter by letter
     # comes in handy if we don't exactly remember what name we want
@@ -344,7 +344,7 @@ Symbolic Links
 Since copying or even moving large files (like sequence data) around your filesystem may be impractical, we can use links to reference "distant" files without duplicating the data in the files. Symbolic links are disposable pointers that refer to other files, but behave like the referenced files in commands.
 
     ln -s PhiX/Illumina/RTA/Sequence/WholeGenomeFasta/genome.fa .
-    ll  # notice the symbolic link pointing at its target
+    ls -ltrhaF  # notice the symbolic link pointing at its target
     grep -c ">" genome.fa
 
 
