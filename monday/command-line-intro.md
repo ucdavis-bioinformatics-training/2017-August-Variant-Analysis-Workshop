@@ -69,8 +69,8 @@ So, ^C, ^D, 'q', and (from above) 'exit'. Generally can't hurt to try until one 
     <spacebar>
     <arrow keys, pgup, pgdn>  # forward or back through file
     g *or* G  # beginning or end of file
-    /es  # '/' enters search mode, "es" is pattern looked for (could be any string)
-    /s  
+    /s  # '/' enters search mode, "es" is pattern looked for (could be any string)
+    /y 
     /no
     # After searching for some text, using the '/' key, you can use:
     n *or* N  # next or previous pattern match
