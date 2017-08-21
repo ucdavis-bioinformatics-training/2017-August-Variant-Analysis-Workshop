@@ -6,19 +6,19 @@ Advanced Command-Line
     mkdir advanced
     cd advanced
     ls /home | cut -c1 | sort | uniq -c
-    ln -s /share/biocore-archive/Leveau_J_UCD/RNASeq_Arabidopsis_2016/00-RawData/C61_S67_L006/C61_S67_L006_R*_001.fastq.gz .
-    zcat C61_S67_L006_R1_001.fastq.gz | sed -n '1~4p' | cut -d: -f10 | sort | uniq -c
+    ln -s /share/biocore/workshops/Variant-Analysis-Workshop/00-RawData/A8100/*.fastq .
+    cat A8100.chr18.R1.fastq | sed -n '1~4p' | cut -d: -f10 | sort | uniq -c
 
 ---
 
 **2\.** Process substitution
 
     module load sickle scythe
-    wget https://ucdavis-bioinformatics-training.github.io/2017-June-RNA-Seq-Workshop/tuesday/adapters.fasta
-    zcat C61_S67_L006_R1_001.fastq.gz | head -400000 > r1.fq
+    wget https://ucdavis-bioinformatics-training.github.io/2017-August-Variant-Analysis-Workshop/tuesday/adapters.fasta
+    cat A8100.chr18.R1.fastq | head -400000 > r1.fq
     sickle se -f <(scythe -a adapters.fasta r1.fq) -t sanger -o trimmed.fa
 
-    zcat C61_S67_L006_R2_001.fastq.gz | head -400000 > r2.fq
+    cat A8100.chr18.R2.fastq | head -400000 > r2.fq
     sickle pe -f <(scythe -a adapters.fasta r1.fq) -r <(scythe -a adapters.fasta r2.fq) -t sanger -o trimmed1.fa -p trimmed2.fa -s single.fa
 
 ---
@@ -74,7 +74,7 @@ Now you need to edit your PATH.
 
 **10\.** Intro to mysql
 
-    wget https://ucdavis-bioinformatics-training.github.io/2017-June-RNA-Seq-Workshop/monday/db.sqlite3
+    wget https://ucdavis-bioinformatics-training.github.io/2017-August-Variant-Analysis-Workshop/monday/db.sqlite3
     sqlite3 db.sqlite3
 
 ---

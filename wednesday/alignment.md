@@ -20,12 +20,12 @@ Link to the files we will be using for alignment:
 
 -----
 
-**2\.** Now, in order to align any data, we need a reference to align against. We have reduced the size of our dataset (by selecting only one chromosome) so that the steps will occur relatively quickly. We have also reduced the genome down to just one chromosome, so that the alignment steps will happen quickly. First, create a directory for the reference and then download the reference:
+**2\.** Now, in order to align any data, we need a reference to align against. We have reduced the size of our dataset (by selecting only one chromosome) so that the steps will occur relatively quickly. We have also reduced the genome down to just one chromosome, so that the alignment steps will happen quickly. First, create a directory for the reference and then copy the reference:
 
     cd ~/variant_example
     mkdir ref
     cd ref
-    wget https://ucdavis-bioinformatics-training.github.io/2017-August-Variant-Analysis-Workshop/wednesday/chr18.fa
+    cp /share/biocore/workshops/Variant-Analysis-Workshop/ref/chr18.fa .
 
 Take a look at it:
 
@@ -166,7 +166,7 @@ Find your genome file on your laptop and choose that:
 
 ![igv5](igv05.png)
 
-Choose all of the ROI.bam files at once (use the <Ctrl> key to choose multiple):
+Choose all of the ROI.bam files at once (use the \<Ctrl\> key to choose multiple):
 
 ![igv6](igv06.png)
 

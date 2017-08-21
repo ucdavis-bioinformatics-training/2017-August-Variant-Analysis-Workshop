@@ -14,7 +14,7 @@ In this exercise, we will learn how to preprocess our data for alignment. We wil
 
 ---
 
-**2\.** Next, go into that directory and link to the directory for your raw data. This data comes from an Arabidopsis RNA-Seq project that we did:
+**2\.** Next, go into that directory and link to the directory for your raw data. This data comes from a project to find variation in horses:
 
     cd variant_example
     ln -s /share/biocore/workshops/Variant-Analysis-Workshop/00-RawData
@@ -57,7 +57,7 @@ This will give you the length of the read. See if you can figure out how this co
 
 **6\.** Now go back to your 'variant_example' directory and create another directory called '01-Trimming':
 
-    cd ~/rnaseq_example
+    cd ~/variant_example
     mkdir 01-Trimming
 
 ---
