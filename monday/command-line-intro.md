@@ -408,7 +408,7 @@ The list can be a sequence of numbers or letters, or a group of files specified 
 
     # imagine you have 20 sequence files, in a 'fastqs' directory:
     bwa index reference.fa
-    for sample in fastqs/\*.fastq; do
+    for sample in fastqs/*.fastq; do
         bwa mem reference.fa $sample 1> $sample.sam 2> $sample.err
     done
     # this would produce, for example, ./fastqs/sample1.fastq.sam and ./fastqs/sample1.fastq.err, etc.
