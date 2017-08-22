@@ -146,7 +146,7 @@ The expression obeys the standard parentheses grouping rules. So what does the a
 
 **11\.** Now let's filter this file using the same rules as we did for GATK.
 
-   java -jar snpEff/SnpSift.jar filter "QD<2.0 \| MQ<40.0 \| FS>60.0 \| MQRankSum<-12.5 \| ReadPosRankSum<-8.0" snpeff.chr18.vcf > snpeff.chr18.gatk_filter.vcf 
+    java -jar snpEff/SnpSift.jar filter "QD<2.0 | MQ<40.0 | FS>60.0 | MQRankSum<-12.5 | ReadPosRankSum<-8.0" snpeff.chr18.vcf > snpeff.chr18.gatk_filter.vcf 
 
 Try to compare the number of variants from this file to the number we got at the end of the GATK example. If the number of variants is very different, try to figure out why.
 
