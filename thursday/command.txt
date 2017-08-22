@@ -1,0 +1,1 @@
+java -jar snpEff/SnpSift.jar filter "isVariant(GEN[0]) & isHom(GEN[0]) & isRef(GEN[1]) & isRef(GEN[2]) & isRef(GEN[3]) & isRef(GEN[4]) & FILTER='PASS'" delly.chr18.all.vcf
