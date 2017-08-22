@@ -13,8 +13,9 @@ Monday
 Tuesday
 =======
 
-* [Files and Filetypes for Genomes/Annotation - fasta/fastq/gtf/gff](tuesday/filetypes) (talk)
-* [Experimental Design and Cost Estimation](tuesday/Variant_Analysis.pdf) (talk)
+* [Files and Filetypes for Genomes/Annotation](tuesday/filetypes) (talk)
+* [Experimental Design and Cost Estimation](tuesday/ExperimentalDesign.pdf) (talk)
+* [Intro to the Research: Occipitoatlantoaxial Malformation](tuesday/OAAM.pdf)
 * [Preprocessing Data hands-on](tuesday/preproc)
 * [Philosophy of Preprocessing Data](tuesday/Preprocessing.pdf) (talk)
 
