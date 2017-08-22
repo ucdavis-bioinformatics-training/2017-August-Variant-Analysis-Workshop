@@ -159,3 +159,8 @@ Run the script using 'sbatch' on rest of the samples:
     sbatch qa.sh A9018
 
 Now you can use 'squeue' to make sure your jobs are queued properly. Now, all you have to do is wait.
+
+---
+
+**14\.** After trimming has been completed, try to determine how effective it was. How many reads were removed by trimming? Also, run fastqc on the trimmed fastq files and compare the output.
+
