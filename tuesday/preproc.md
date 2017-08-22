@@ -162,5 +162,5 @@ Now you can use 'squeue' to make sure your jobs are queued properly. Now, all yo
 
 ---
 
-**14\.** After trimming has been completed, try to determine how effective it was. How many reads were removed by trimming? Also, run fastqc on the trimmed fastq files and compare the output.
+**14\.** After trimming has been completed, try to determine how effective it was. How many reads were removed by trimming? Also, run fastqc on the trimmed fastq files and compare the output. See if you can find any adapter contamination. See if you can extract the GC content.
 
