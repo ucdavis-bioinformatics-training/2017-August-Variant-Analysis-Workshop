@@ -64,7 +64,7 @@ This step will take about 10 minutes to run.
 
 **4\.** Next, we will align the single-end file for the same sample:
 
-    bwa mem -t 4 ../ref/chr18.fa A8100.chr18.singles.fastq > A8100.chr18.singles.sam
+    bwa mem -t 4 -R "@RG\tID:A8100\tSM:A8100" ../ref/chr18.fa A8100.chr18.singles.fastq > A8100.chr18.singles.sam
 
 Then, we need to convert the sam files into bam files for downstream processing. We will use a tool called 'samtools' to do this. Load the samtools module and take a look at the various subcommands and options:
 
