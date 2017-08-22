@@ -7,6 +7,10 @@ In this exercise, we will learn how to preprocess our data for alignment. We wil
 
 ---
 
+Before we begin, let's take a few minutes to understand what we will be doing in these exercises.(tuesday/Read_Preproc.pdf)
+
+---
+
 **1\.** First, create a directory for the example in your home directory:
 
     cd
