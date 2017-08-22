@@ -100,6 +100,10 @@ Looking at the Usage you can see that scythe needs an adapter file and the seque
 
     wget https://ucdavis-bioinformatics-training.github.io/2017-August-Variant-Analysis-Workshop/tuesday/adapters.fasta
 
+Take a look at the adapters file:
+
+    cat adapters.fasta
+
 Now run scythe specifying an output file, the adapters file, and the input file. Add an ampersand at the end to run it in the background so that we can run the other file through scythe concurrently:
 
     scythe -o A8100.chr18.R1.scythe.fastq -a adapters.fasta A8100.chr18.R1.fastq &
