@@ -7,14 +7,14 @@ Monday
 * [Advanced command-line](monday/advanced-command-line)
 * [What is Bioinformatics?](monday/What_is_Bioinformatics.pdf) (talk)
 * [Running jobs on the Cluster and using modules](monday/cluster)
-* [Intro to Sequencing] (talk)
+* [Intro to Sequencing](monday/Intro2Seq_Variants_2017.pdf (talk)
 
 
 Tuesday
 =======
 
-* [Files and Filetypes for Genomes/Annotation](tuesday/filetypes) (talk)
-* [Experimental Design and Cost Estimation](tuesday/ExperimentalDesign.pdf) (talk)
+* [Files and Filetypes for Genomes/Annotation - fasta/fastq/gtf/gff](tuesday/filetypes) (talk)
+* [Experimental Design and Cost Estimation](tuesday/Variant_Analysis.pdf) (talk)
 * [Preprocessing Data hands-on](tuesday/preproc)
 * [Philosophy of Preprocessing Data](tuesday/Preprocessing.pdf) (talk)
 
@@ -24,15 +24,18 @@ Wednesday
 
 * [Aligners](wednesday/aligners) (talk)
 * [Aligning Data and IGV](wednesday/alignment)
-* [Genome Assembly and Annotation] (talk)
+* [Files and Filetypes for Genomes/Annotation - sam/bam](tuesday/filetypes) (talk)
+* [Genome Assembly and Annotation](wednesday/GenomeAssembly.pdf) (talk)
 * [Variant calling with Freebayes & Delly](wednesday/variant_calling)
-* [Variant calling with GATK](wednesday/gatk)
+* [Files and Filetypes for Genomes/Annotation - vcf](tuesday/filetypes) (talk)
+* [Variant Effect Prediction](thursday/snpeff)
+
 
 
 Thursday
 ==========
 
-* [Variant Effect Prediction](thursday/snpeff)
+* [Variant calling with GATK](wednesday/gatk)
 * [Variant Filtering](thursday/snpsift)
 * [SNPs/CNVs]
 
