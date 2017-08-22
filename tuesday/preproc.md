@@ -8,7 +8,7 @@ In this exercise, we will learn how to preprocess our data for alignment. We wil
 ---
 
 Before we begin, let's take a few minutes to understand what we will be doing in these exercises. 
-[Here are a few slides.](tuesday/Read_Preproc.pdf)
+[Here are a few slides.](tuesday/ReadPreproc.pdf)
 
 ---
 
