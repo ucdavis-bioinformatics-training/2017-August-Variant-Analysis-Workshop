@@ -7,7 +7,7 @@ Monday
 * [Advanced command-line](monday/advanced-command-line)
 * [What is Bioinformatics?](monday/What_is_Bioinformatics.pdf) (talk)
 * [Running jobs on the Cluster and using modules](monday/cluster)
-* [Intro to Sequencing] (talk)
+* [Intro to Sequencing](monday/Intro2Seq_Variants_2017.pdf)(talk)
 
 
 Tuesday
