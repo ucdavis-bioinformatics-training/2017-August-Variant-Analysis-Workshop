@@ -188,4 +188,4 @@ If you are unable to get it, [click here](command.txt) to see the command.
 
 ---
 
-**13\.** You will see that there is only one variant left after the command. This is the variant from the paper. To verify it, redirect the output of the command to a file and then extract the chromosome, position, and end information using 'extractFields'. Go back to IGV, load up the alignment tracks, and go to that position. You should see the deletion that we looked at earlier in the week.
+**13\.** You will see that there is only one variant left after the command. This is the variant from the paper. To verify it, redirect the output of the command to a file and then extract the chromosome, position, and end information using 'extractFields'. Go back to IGV, load up the alignment tracks, and go to that position. You should see the deletion that we looked at earlier in the week. Finally, earlier we used the annotation file to create our effect database.... download that file to your laptop and load it into IGV. You should see the HOXD3 gene downstream of the deletion region.
