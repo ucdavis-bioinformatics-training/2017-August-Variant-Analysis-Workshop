@@ -15,7 +15,7 @@ In this section we will be using a software called 'snpeff' to do effect predict
 
 And let's link in our variant file from our freebayes run:
 
-    ln -s ../03-freebayes/all.chr18.vcf
+    ln -s ../03-freebayes/freebayes.chr18.all.vcf
 
 ---
 
@@ -84,7 +84,7 @@ Now we're ready to do effect prediction.
 
 Now run the prediction:
 
-    java -jar snpEff/snpEff.jar eff chr18 all.chr18.vcf > snpeff.chr18.vcf
+    java -jar snpEff/snpEff.jar eff chr18 freebayes.chr18.all.vcf > snpeff.chr18.vcf
 
 This will take about 8 minutes to run.
 
