@@ -24,8 +24,9 @@ Now, let's link in the relevant files from our alignments, along with their indi
 
     module load samtools
     samtools rmdup A8100.chr18.all.bam A8100.chr18.all.rmdup.bam
+    samtools index A8100.chr18.all.rmdup.bam
 
-You will probably get some warning messages... just ignore those. Run 'samtools rmdup' for all the rest of the samples as well.
+You will probably get some warning messages... just ignore those. Run 'samtools rmdup' and indexing for the rest of the samples as well.
 
 ---
 
