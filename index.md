@@ -1,5 +1,5 @@
 Monday
-=======
+----------
 
 * [Introduction](monday/Introduction.pdf)
 * [Logging In and transferring files](monday/logging-in)
@@ -11,7 +11,7 @@ Monday
 
 
 Tuesday
-=======
+----------
 
 * [Files and Filetypes for Genomes/Annotation](tuesday/filetypes) (talk)
 * [Experimental Design and Cost Estimation](tuesday/ExperimentalDesign.pdf) (talk)
@@ -21,7 +21,7 @@ Tuesday
 
 
 Wednesday
-==========
+----------
 
 * [Aligners](wednesday/aligners) (talk)
 * [Aligning Data and IGV](wednesday/alignment)
@@ -34,7 +34,7 @@ Wednesday
 
 
 Thursday
-==========
+----------
 
 * [Variant calling with GATK](wednesday/gatk)
 * [Variant Effect Prediction and Variant Filtering](thursday/snpeff)
@@ -42,7 +42,7 @@ Thursday
 
 
 Friday
-=======
+----------
 
 * [Intro to R](friday/Intro2R.md)
 * [Advanced Sequencing and Wet Lab Topics, Lutz Froenicke](talk)
@@ -51,7 +51,7 @@ Friday
 * [Closing thoughts](friday/Closing_Thoughts.pdf)
 
 Evaluation!
-============
+----------
 
 Please help us improve future workshops, for you and others, by filling out an [evaluation](https://goo.gl/).
 
