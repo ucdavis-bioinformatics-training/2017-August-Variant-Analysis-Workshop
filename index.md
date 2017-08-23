@@ -44,9 +44,9 @@ Thursday
 Friday
 =======
 
-* [Intro to R](thursday/Intro2R.md)
+* [Intro to R](friday/Intro2R.md)
 * [Advanced Sequencing and Wet Lab Topics, Lutz Froenicke](talk)
-* [Variant Analysis with R]
+* [Variant Analysis with R](friday/Variant-Analysis-by-R.md)
 * [GWAS] (talk)
 * [Closing thoughts](friday/Closing_Thoughts.pdf)
 
