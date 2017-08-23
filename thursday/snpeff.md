@@ -54,19 +54,9 @@ Save the file and Exit nano.
     mkdir data/chr18 
     cd data/chr18
 
-Now copy over the reference file, but call it "sequences.fa":
-
-    cp ../ref/chr18.fa sequences.fa
-    cd data/chr18
-
-Now copy over the reference file, but call it "sequences.fa":
-
-    cp ../ref/chr18.fa sequences.fa
-    cd data/chr18
-
 Now, link to the reference file, but call it "sequences.fa":
 
-    ln -s ../../../../ref/chr18.fa sequences.fa
+    ln -s ~/variant_example/ref/chr18.fa sequences.fa
 
 And get the annotation file:
 
