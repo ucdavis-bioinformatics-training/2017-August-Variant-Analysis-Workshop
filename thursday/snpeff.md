@@ -134,11 +134,12 @@ The expression obeys the standard parentheses grouping rules. So what does the a
 
 ---
 
-**11\.** Now let's filter this file using the same rules as we did for GATK.
+**11\.** Compare this file with the file we got from GATK:
 
-    java -jar snpEff/SnpSift.jar filter "QD<2.0 | MQ<40.0 | FS>60.0 | MQRankSum<-12.5 | ReadPosRankSum<-8.0" snpeff.chr18.vcf > snpeff.chr18.gatk_filter.vcf 
+    grep -v ^# snpeff.chr18.vcf | wc -l
+    grep -v ^# ../04-gatk/all.chr18.vcf | wc -l
 
-Try to compare the number of variants from this file to the number we got at the end of the GATK example. If the number of variants is very different, try to figure out why.
+Are the number of variants the same? If not, why not?
 
 ---
 
