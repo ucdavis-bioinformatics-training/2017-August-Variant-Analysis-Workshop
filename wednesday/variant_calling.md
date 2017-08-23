@@ -20,7 +20,16 @@ Now, let's link in the relevant files from our alignments, along with their indi
 
 ---
 
-**2\.** First we will use software called 'freebayes' to find SNPs and short indels. Load the module and take a look at the help text:
+**2\.** In order to call variants effectively, we need to remove duplicate reads. We will use 'samtools' to do this:
+
+    module load samtools
+    samtools rmdup A8100.chr18.all.bam A8100.chr18.all.rmdup.bam
+
+You will probably get some warning messages... just ignore those. Run 'samtools rmdup' for all the rest of the samples as well.
+
+---
+
+**3\.** Now we will use software called 'freebayes' to find SNPs and short indels. Load the module and take a look at the help text:
 
     module load freebayes
     freebayes -h
@@ -39,32 +48,32 @@ Take a look at the file:
 
 The way that we are running freebayes uses, as input, a text file containing a list of BAMs to analyze (the "-L" option). You will need to create this text file before you can run the script:
 
-    ls *.all.bam > bamlist.txt
+    ls *.all.rmdup.bam > bamlist.txt
 
 Check the file and make sure it looks right:
 
     cat bamlist.txt
 
-Now, run the script using sbatch:
+There should be five files. Now, run the script using sbatch:
 
     sbatch fb.sh bamlist.txt
 
 ---
 
-**3\.** Now, let's run delly. We are going to use delly to find large deletions in our data. 
+**4\.** Now, let's run delly. We are going to use delly to find large deletions in our data. 
 
     module load delly
     delly --help
 
 Now, run delly giving it a reference and all of our bam files:
 
-    delly -o delly.chr18.all.vcf -g ../ref/chr18.fa *.all.bam
+    delly -o delly.chr18.all.vcf -g ../ref/chr18.fa *.all.rmdup.bam
 
 This should take about 5 minutes to run.
 
 ---
 
-**4\.** Take a look at the output:
+**5\.** Take a look at the output:
 
     less delly.chr18.all.vcf
 
@@ -76,4 +85,4 @@ Take a look at the filtered file. It should only contain "PASS" variants:
 
     less delly.chr18.filtered.vcf
 
-The deletion from the paper is in this file. See if you can find it. Also, look at the [VCF specification](https://samtools.github.io/hts-specs/VCFv4.2.pdf) to get more details of the different fields.
+The deletion from the paper is in this file. See if you can find it in the file. Also, look at the [VCF specification](https://samtools.github.io/hts-specs/VCFv4.2.pdf) to get more details of the different fields.
