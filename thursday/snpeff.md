@@ -142,7 +142,7 @@ The expression obeys the standard parentheses grouping rules. So what does the a
 Are the number of variants the same? If not, why not? Also, we can use 'bedtools' to look at the intersection (bedtools will work on BED as well as VCF format files):
 
     module load bedtools
-    bedtools intersect -a freebayes.chr18.all.vcf -b all.chr18.vcf | wc -l
+    bedtools intersect -a snpeff.chr18.vcf -b ../04-gatk/all.chr18.vcf | wc -l
 
 This gives you the number of variants that intersect between the two.
 
