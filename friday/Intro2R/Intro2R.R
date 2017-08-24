@@ -1,7 +1,8 @@
 #Topic 1. Basic data types in R
 #====================================================
 
-# Simple variables: variables that have a numeric value, a character value (such as a string), or a logical value (True or False)
+# Simple variables: variables that have a numeric value, a character value (such as a string), 
+# or a logical value (True or False)
 
 #Examples of numeric values.
 # assign number 150 to variable a.
@@ -10,6 +11,10 @@ a
 # assign a number in scientific format to variable b.
 b <- 3e-2
 b
+
+# Two ways to display the value of a variable
+b
+print(b)
 
 #Examples of character values.
 # assign a string "Professor" to variable title
@@ -42,12 +47,11 @@ is.character(hello)
 as.numeric(is_female)
 as.numeric(is_male)
 
-#R does not know how to convert a numeric variable to a character variable.
-b
 as.character(b)
 
 
-# Vectors: a vector is a combination of multiple values(numeric, character or logical) in the same object. A vector is created using the function c() (for concatenate).
+# Vectors: a vector is a combination of multiple values(numeric, character or logical) 
+# in the same object. A vector is created using the function c() (for concatenate).
 
 friend_ages <- c(21, 27, 26, 32)
 friend_ages
@@ -94,7 +98,8 @@ my_friends[has_child == "TRUE"]
 ### NOTE: a vector can only hold elements of the same type.
 
 
-# Matrices: A matrix is like and Excel sheet containing multiple rows and columns. It is used to combine vectors of the same type.
+# Matrices: A matrix is like and Excel sheet containing multiple rows and columns. 
+# It is used to combine vectors of the same type.
 
 col1 <- c(1,3,8,9)
 col2 <- c(2,18,27,10)
@@ -155,6 +160,11 @@ apply(my_matrix, 1, median)
 friend_groups <- factor(c(1,2,1,2))
 friend_groups
 
+# Factors are stored as numbers, but not always what you expect!
+friend_groups <- factor(c(0,1,0,1))
+friend_groups
+as.numeric(friend_groups)
+
 #In R, categories are called factor levels. The function levels() can be used to access the factor levels.
 
 levels(friend_groups)
@@ -169,14 +179,20 @@ friend_groups
 levels(friend_groups) <- c("not_best_friend", "best_friend")
 friend_groups
 
+# OR
+friend_groups <- relevel(friend_groups, ref = "not_best_friend")
+friend_groups 
+
 #By default, the order of factor levels is taken in the order of numeric or alphabetic.
 
 friend_groups <- factor(c("not_best_friend", "best_friend", "not_best_friend", "best_friend"))
 friend_groups
 
-#The factor levels can be specified when creating the factor, if the order does not follow the default rule.
+#The factor levels can be specified when creating the factor, if the order does not follow the 
+#default rule.
 
-friend_groups <- factor(c("not_best_friend", "best_friend", "not_best_friend", "best_friend"), levels=c("not_best_friend", "best_friend"))
+friend_groups <- factor(c("not_best_friend", "best_friend", "not_best_friend", "best_friend"), 
+                        levels=c("not_best_friend", "best_friend"))
 friend_groups
 
 #If you want to know the number of individuals at each levels, there are two functions.
@@ -193,13 +209,17 @@ table(friend_groups)
 # creating a data frame using previously defined vectors
 friends <- data.frame(name=friend_names, age=friend_ages, child=has_child)
 friends
-```
 
 #To check whether a data is a data frame, use the function is.data.frame().
 
 is.data.frame(friends)
 
-is.data.frame(my_matrix)
+# Look at contents of data frame
+head(friends)
+
+str(friends) # shows structure of any R object
+
+summary(friends) # summary does different things depending on object class
 
 #One can convert a object to a data frame using the function as.data.frame().
 
@@ -208,14 +228,10 @@ class(my_matrix)
 my_data <- as.data.frame(my_matrix)
 class(my_data)
 
-#A data frame can be transposed in the similar way as a matrix.
-
-my_data
-
-t(my_data)
+is.data.frame(my_matrix)
 
 #To obtain a subset of a data frame can be done in similar ways as we have discussed: by index, by row/column names, or by logical vaalues.
-
+rownames(friends)
 friends["Mina",]
 
 # The columns of a data frame can be referred to by the names of the columns using "$"
@@ -223,17 +239,24 @@ friends
 friends$age
 friends[friends$age > 26,]
 
-
 friends[friends$child == "TRUE",]
+
+# Missing values can complicate subsetting
+friends2 <- friends
+friends2$age[2] <- NA
+friends2$age > 26
+
+friends2[which(friends2$age > 26),]
 
 #Function subset() can also be used to get a subset of a data frame.
 
 # select friends that are older than 26
 subset(friends, age > 26)
 
+subset(friends2, age > 26)
+
 # select the information of the ages of friends
 subset(friends, select=age)
-
 
 #A data frame can be extended.
 
@@ -243,11 +266,8 @@ friends
 
 #A data frame can also be extended using the functions cbind() and rbind().
 
-
 # add a column that has the information on the salaries of friends
 cbind(friends, salary=c(4000, 8000, 2000, 6000))
-
-
 
 # Lists: a list is an ordered collection of objects, which can be any type of R objects (vectors, matrices, data frames).
 
@@ -275,20 +295,27 @@ my_list[[3]]
 
 my_list[[3]][2]
 
+# Data frames are actually lists
+is.list(friends)
+friends[[1]]
 
 #Topic 2. Importing and exporting data in R
 #====================================================
 
-#R base function read.table() is a general funciton that can be used to read a file in table format. The data will be imported as a data frame. If you have downloaded the "raw_counts.txt" file to your current working directory, you may read in the file using the following command.
+# Make sure files raw_counts.txt and raw_counts.csv are in your working directory
+getwd() # Windows users, note forward slashes in path
+list.files()
+
+# setwd() allows you to change working directory (also possible from gui)
+# setwd("C:/users/bpdurbin/desktop")
+
+#R base function read.table() is a general function that can be used to read a file in table format. The data will be imported as a data frame. If you have downloaded the "raw_counts.txt" file to your current working directory, you may read in the file using the following command.
 
 data <- read.table(file="raw_counts.txt", sep="\t", header=T, stringsAsFactors=F)
 
-#If you haven't downloaded the file yet, you may use a more convenient way to read in the file over internet.
-data <- read.table(file="https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2017-August-Variant-Analysis-Workshop/master/friday/Intro2R/raw_counts.txt", sep="\t", header=T, stringsAsFactors=F)
-
 #Take a look at the beginning part of the data frame.
 head(data)
-
+str(data)
 
 #Depending on the format of the file, several variants of read.table() are available to make reading a file easier.
 
@@ -305,16 +332,16 @@ head(data)
 ?read.delim
 ?read.delim2
 
-#If you have downloaded the "raw_counts.csv" file to your current working directory, you may read in the file using the following command.
-data2 <- read.csv(file="raw_counts.csv", stringsAsFactors=F)
+# Note: read.xls in gdata package will allow direct reading of .xls and .xlsx files.
+# Or save as csv...
 
-#Or you may read in the file over the internet like before.
-data2 <- read.csv(file="https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2017-August-Variant-Analysis-Workshop/master/friday/Intro2R/raw_counts.csv", stringsAsFactors=F)
+#If you have downloaded the "raw_counts.csv" file to your current working directory, 
+# you may read in the file using the following command.
+data2 <- read.csv(file="raw_counts.csv", stringsAsFactors=F)
 
 #To look at the file
 head(data2)
-
-
+str(data2)
 
 #R base function write.table() can be used to export a data frame or matrix to a file.
 
@@ -329,27 +356,25 @@ write.table(data2[1:20,], file="output.txt", sep="\t", quote=F, row.names=T, col
 ?write.csv
 ?write.csv2
 
-
-
 #Topic 3. Basic statistics in R
 #====================================================
+mean(data$I892)
+sd(data$I892)
 
-library(knitr)
-kable(data.frame(Description=c("Mean", "Standard deviation", "Variance", "Minimum", "Maximum", "Median", "Range of values: minimum and maximum", "Sample quantiles", "Generic function", "Interquartile range"), R_function=c("mean()", "sd()", "var()", "min()", "max()", "median()", "range()", "quantile()", "summary()", "IQR()"), stringsAsFactors=F), align='c')
-```
-
-#Calculate the mean expression for each sample.
+#Calculate the mean for each column
 
 apply(data, 2, mean)
 
-#Calculate the range of expression for each sample.
+#Calculate the range for each column
 
 apply(data, 2, range)
 
-#Calculate the quantiles of each samples.
+#Calculate the quantiles of each column.
 
 apply(data, 2, quantile)
 
+# Calculate the mean ages of friends with and without children
+tapply(friends$age, friends$child, mean)
 
 #Topic 4. Simple data visulization in R
 #====================================================
@@ -368,6 +393,11 @@ boxplot(data, xlab="Sample ID", ylab="Raw Counts")
 x <- rnorm(1000)
 boxplot(x)
 
+# plot() produces different plots depending on data type
+plot(age ~ child, data = friends) # boxplot
+
+plot(C61 ~ C62, data = data) # scatterplot
+
 
 #Topic 5. lapply(), sapply()
 #====================================================
@@ -376,18 +406,21 @@ boxplot(x)
 # The difference between lapply() and apply() is that lapply() can be applied on objects like dataframes, lists or vectors. Function apply() only works on an array of dimension 2 or a matrix.
 
 # To check the syntax of using lapply():
-?lapply()
+?lapply
 
 data <- as.data.frame(matrix(rnorm(49), ncol=7), stringsAsFactors=F)
 dim(data)
+head(data)
 lapply(1:dim(data)[1], function(x){sum(data[x,])})
 apply(data, MARGIN=1, sum)
 lapply(1:dim(data)[1], function(x){log10(sum(data[x,]))})
 
+lapply(friends, table)
+
 # The function sapply() works like function lapply(), but tries to simplify the output to the most elementary data structure that is possible. As a matter of fact, sapply() is a "wrapper" function for lapply(). By default, it returns a vector.
 
 # To check the syntax of using sapply():
-?sapply()
+?sapply
 
 sapply(1:dim(data)[1], function(x){log10(sum(data[x,]))})
 
@@ -395,11 +428,15 @@ sapply(1:dim(data)[1], function(x){log10(sum(data[x,]))})
 
 sapply(1:dim(data)[1], function(x){log10(sum(data[x,]))}, simplify=FALSE)
 
+sapply(names(friends), function(x)summary(friends[,x]))
+
 
 #Topic 6. Installing packages in R
 #====================================================
 
-#There two ways to install bioconductor packages in R: biocLite(), install.packages()
+#There two ways to install packages in R: biocLite(), install.packages()
+# install.packages() for packages on CRAN
+# biocLite() for Bioconductor packages
 
 source("http://bioconductor.org/biocLite.R")
 ## install core packages
@@ -407,17 +444,8 @@ biocLite()
 ## install specific packages
 #biocLite("RCircos")
 #biocLite(c("IdeoViz", "devtools"))
-```
 
-```{r}
 #install.packages("ggplot2", repos="http://cran.us.r-project.org")
-```
-
-Install from source of github.
-```{r}
-library(devtools)
-install_github("stephenturner/qqman")
-```
 
 # biocLite() is the recommended way to install Bioconductor packages. 
 

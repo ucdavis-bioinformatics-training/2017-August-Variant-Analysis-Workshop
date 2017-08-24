@@ -48,7 +48,7 @@ Friday
 * [Intro to R](friday/Intro2R.md)
 * [Advanced Sequencing and Wet Lab Topics, Lutz Froenicke](talk)
 * [Variant Analysis with R](friday/Variant-Analysis-by-R.md)
-* [GWAS] (talk)
+* [GWAS/Cancer-Seq] (talk)
 * [Closing thoughts](friday/Closing_Thoughts.pdf)
 
 Evaluation!

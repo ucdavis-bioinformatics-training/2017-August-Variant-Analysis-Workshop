@@ -80,7 +80,8 @@ This should take about 5 minutes to run.
 
 We want to just get the variants that "PASS", not the "LowQual" ones. So we will use a program called 'awk' to do that. 'awk' is a simple language designed for text processing in Unix. The command below looks at the 7th column ($7) on a line, and if the value of that column is "PASS", it prints out the line.
 
-    cat delly.chr18.all.vcf | awk '{ if($7=="PASS") print}' > delly.chr18.filtered.vcf
+	grep "^#" delly.chr18.all.vcf > delly.chr18.filtered.vcf
+    cat delly.chr18.all.vcf | awk '{ if($7=="PASS") print}' >> delly.chr18.filtered.vcf
 
 Take a look at the filtered file. It should only contain "PASS" variants:
 
