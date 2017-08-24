@@ -1,7 +1,6 @@
 Introduction to R
 ==============
 
-
 [R Code](Intro2R/Intro2R.R)
 
 [R documentation](Intro2R/Intro2R.html)
