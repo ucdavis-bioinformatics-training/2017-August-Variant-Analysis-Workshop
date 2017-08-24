@@ -1,0 +1,175 @@
+---
+output:
+  word_document: default
+  html_document: default
+---
+First of all, we are going to generate plots to show the composition of different types of variants.  
+
+## 1. simple pie chart
+The number of SNPs, MNPs, INS, DELs, and COMPLEX in the list of filtered variants by Freebayes (QUAL > 60).
+```{r message=FALSE, warning=FALSE}
+slices <- c(8539874, 137816, 407312, 470210, 324538)
+labels <- c("SNP", "MNP", "INS", "DEL", "COMPLEX")
+pct <- round(slices/sum(slices)*100, digits=2)
+labels <- paste(labels, pct)
+labels <- paste(labels, "%", sep="")
+pie(slices, labels=labels, col=rainbow(length(labels)), main="Different types of variants")
+```
+
+## 2. histogram plot of the data above
+```{r message=FALSE, warning=FALSE}
+variants <- round(slices/sum(slices), digits=2)
+names(variants) <- c("SNP", "MNP", "INS", "DEL", "COMPLEX")
+barplot(variants, col="red", main="Different types of variants", xlab="Type of variant", ylab="Percentage")
+```
+
+## 3. circos plot  
+### Now, we are going to use a package "RCircos" to generate circos plot.
+First, install RCircos if haven't done it already 
+
+```{r message=FALSE, warning=FALSE}
+#source("http://bioconductor.org/biocLite.R")
+#biocLite("RCircos")
+#biocLite("IdeoViz")
+library(IdeoViz)
+library(RCircos)
+```
+
+Download cytoband ideogram data from UCSC using package IdeoViz.
+```{r}
+ideo <- getIdeo("equCab2")
+```
+
+Set up RCircos core components. One may plot both to the inside and outside of the ideogram track. Today, we are going to only plot tracks in the inside of the ideogram.
+```{r}
+chr.exclude <- NULL
+cyto.info <- ideo
+tracks.inside <- 10
+tracks.outside <- 0
+RCircos.Set.Core.Components(cyto.info, chr.exclude, tracks.inside, tracks.outside)
+
+# plot ideogram
+RCircos.Set.Plot.Area()
+RCircos.Chromosome.Ideogram.Plot()
+
+# plot gene labels, there are limits setup by default for the number of genes that can be plotted for each chromosome based on the size of the chromosomes. The parameter can be changed if necessary. However, plotting too many genes will have the risk of having gene symbols overlapping one another.
+
+gene.label.data <- read.table(file="gene.label", sep="\t", header=F)
+
+# The format of the gene information:
+
+head(gene.label.data)
+
+# The column names of gene information should be set as following.
+
+colnames(gene.label.data) <- c("Chromosome", "chromStart", "chromEnd", "Gene")
+
+# Create a subset of gene list. first remove genes that do not have gene symbols, because ENSEMBL IDs are too long in character and will use up too much space for demonstration purpose. The list of genes would be the genes of interest. In the class, we will randomly select 30 genes.
+
+tmp.list <- gene.label.data[-grep("ENSECAT", gene.label.data$Gene),]
+idx <- sample(1:dim(tmp.list)[1], 30, replace=F)
+gene.list <- tmp.list[idx,]
+name.col <- 4
+side <- "in"
+track.num <- 1
+RCircos.Gene.Connector.Plot(gene.list, track.num, side)
+
+track.num <- 2
+RCircos.Gene.Name.Plot(gene.list, name.col, track.num, side)
+# It's possible that some genes are not plotted because of the limit of plotting for each chromosome.
+
+# check plot parameters, if needed, they may be changed.
+RCircos.Get.Gene.Name.Plot.Parameters() 
+
+
+
+# add extra tracks -- Histogram plot of CNV data. Any extra track will depend on the types of data one wants to include in the plot. The required information is the location of what will be plotted in the genome: chromosome number, start and stop position.
+gene.list$CNV <- floor(runif(30, 1, 7))
+data.col <- 5
+track.num <- 5
+side <- "in"
+RCircos.Histogram.Plot(gene.list, data.col, track.num, side, is.sorted=FALSE, min.value=-2)
+
+
+# add extra tracks -- Scatter plot of RNASeq results
+gene.expr <- gene.list
+colnames(gene.expr)
+colnames(gene.expr) <- c("chromosome", "start", "stop", "gene.name", "CNV")
+
+# generate random logFC data of 30 in length between -3 and 3
+gene.expr$logFC <- runif(30, -3, 3)
+
+# first three columns are required for plotting and one more column that corresponds to the data to plot 
+head(gene.expr)
+
+data.col <- 6
+track.num <- 6
+side <- "in"
+
+# "by.fold" is a zero or positive number. If it's positive, then any data point with a value >= by.fold will be plotted as red color; any data point with a value <= -by.fold will be plotted as blue color; otherwise, data point will be plotted in black color.
+by.fold <- 1.5
+
+# plot scatter plot
+RCircos.Scatter.Plot(gene.expr, data.col, track.num, side, by.fold, is.sorted=FALSE)
+
+# add extra tracks -- Line plot of Coverage results
+
+genome.cov <- gene.label.data[-grep("ENSECAT", gene.label.data$Gene),]
+colnames(genome.cov) <- c("chromosome", "start", "stop", "gene.name")
+genome.cov$logCOV <- rnorm(dim(genome.cov)[1], 0, 0.9)
+data.col <- 5
+track.num <- 7
+side <- "in"
+RCircos.Line.Plot(genome.cov, data.col, track.num, side, is.sorted=FALSE)
+
+# add most inside track -- link lines and ribbons.
+
+# generate random translocation variants data
+link.data <- data.frame(Chromosome=character(), chromStart=integer(), chromEnd=integer(), Chromosome.1=character(), chromStart.1=integer(), chromEnd.1=integer(), stringsAsFactors=F)
+for (i in 1:15) {
+  n.rand <- floor(runif(1, 1,34))
+  chrom <- ideo$chrom[n.rand]
+  str <- floor(runif(1, ideo$chromStart[n.rand], ideo$chromEnd[n.rand]))
+  ed <- floor(runif(1, ideo$chromStart[n.rand], ideo$chromEnd[n.rand]))
+  n.rand <- floor(runif(1, 1, 34))
+  chrom.1 <- ideo$chrom[n.rand]
+  str.1 <- floor(runif(1, ideo$chromStart[n.rand], ideo$chromEnd[n.rand]))
+  ed.1 <- str.1
+  if (ed < str) {
+    tmp <- ed
+    ed <- str
+    str <- tmp
+  }
+  link.data <- rbind(link.data, data.frame(Chromsome=chrom, chromStart=str, chromEnd=ed, Chromosome.1=chrom.1, chromStart.1=str.1, chromEnd.1=ed.1))
+  i <- i + 1
+}
+
+track.num <- 9
+
+# plot link lines
+RCircos.Link.Plot(link.data, track.num, TRUE, is.sorted=FALSE)
+
+# ribbon data
+ribbon.data <- link.data
+colnames(ribbon.data) <- c("chromA", "chromStartA", "chromEndA", "chromB", "chromStartB", "chromEndB")
+RCircos.Ribbon.Plot(ribbon.data=ribbon.data, track.num=9, by.chromosome=FALSE, twist=FALSE, is.sorted=FALSE)
+
+```
+
+# 4. GWAS data plotting
+Install R package "qqman" if it hasn't been done. The develop version of the package can be installed from the source on github.
+```{r message=FALSE, warning=FALSE}
+biocLite("devtools")
+library(devtools)
+#install_github("stephenturner/qqman")
+library(qqman)
+
+# using the example data from qqman package
+head(gwasResults)
+manhattan(gwasResults)
+# use colors for chromosomes
+manhattan(gwasResults, col=c("red", "blue", "green"))
+# change default horizontal line position
+manhattan(gwasResults, suggestiveline=-log10(1e-6), genomewideline=-log10(1e-8), col=c("red", "blue", "green"))
+```
+
