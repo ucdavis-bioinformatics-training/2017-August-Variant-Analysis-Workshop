@@ -98,6 +98,10 @@ And index the final alignment file. This will allow downstream programs to easil
 
     samtools index A8100.chr18.all.bam
 
+You can also use 'samtools flagstat' to get a summary of the alignment:
+
+    samtools flagstat A8100.chr18.all.bam
+
 -----
 
 **6\.** In the next step, we will use another Slurm script to run all the alignment commands on the rest of the samples. First download the script:

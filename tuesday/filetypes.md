@@ -1,5 +1,5 @@
-Files and Filetypes for RNA-Seq
-================================
+Files and Filetypes for Alignment & Variant Discovery
+=========================================================
 
 Joe Fass
 

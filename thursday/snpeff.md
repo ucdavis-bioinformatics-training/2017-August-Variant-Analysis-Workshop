@@ -15,7 +15,7 @@ In this section we will be using a software called 'snpeff' to do effect predict
 
 And let's link in our variant file from our freebayes run:
 
-    ln -s ../03-freebayes/all.chr18.vcf
+    ln -s ../03-freebayes/freebayes.chr18.all.vcf
 
 ---
 
@@ -54,19 +54,9 @@ Save the file and Exit nano.
     mkdir data/chr18 
     cd data/chr18
 
-Now copy over the reference file, but call it "sequences.fa":
-
-    cp ../ref/chr18.fa sequences.fa
-    cd data/chr18
-
-Now copy over the reference file, but call it "sequences.fa":
-
-    cp ../ref/chr18.fa sequences.fa
-    cd data/chr18
-
 Now, link to the reference file, but call it "sequences.fa":
 
-    ln -s ../../../../ref/chr18.fa sequences.fa
+    ln -s ~/variant_example/ref/chr18.fa sequences.fa
 
 And get the annotation file:
 
@@ -94,7 +84,7 @@ Now we're ready to do effect prediction.
 
 Now run the prediction:
 
-    java -jar snpEff/snpEff.jar eff chr18 all.chr18.vcf > snpeff.chr18.vcf
+    java -jar snpEff/snpEff.jar eff chr18 freebayes.chr18.all.vcf > snpeff.chr18.vcf
 
 This will take about 8 minutes to run.
 
@@ -144,11 +134,17 @@ The expression obeys the standard parentheses grouping rules. So what does the a
 
 ---
 
-**11\.** Now let's filter this file using the same rules as we did for GATK.
+**11\.** Compare this file with the file we got from GATK:
 
-    java -jar snpEff/SnpSift.jar filter "QD<2.0 | MQ<40.0 | FS>60.0 | MQRankSum<-12.5 | ReadPosRankSum<-8.0" snpeff.chr18.vcf > snpeff.chr18.gatk_filter.vcf 
+    grep -v ^# snpeff.chr18.vcf | wc -l
+    grep -v ^# ../04-gatk/all.chr18.vcf | wc -l
 
-Try to compare the number of variants from this file to the number we got at the end of the GATK example. If the number of variants is very different, try to figure out why.
+Are the number of variants the same? If not, why not? Also, we can use 'bedtools' to look at the intersection (bedtools will work on BED as well as VCF format files):
+
+    module load bedtools
+    bedtools intersect -a snpeff.chr18.vcf -b ../04-gatk/all.chr18.vcf | wc -l
+
+This gives you the number of variants that intersect between the two.
 
 ---
 
@@ -182,7 +178,7 @@ will look for any variants that occur in the first sample (1st sample is 0, 2nd 
 
     java -jar snpEff/SnpSift.jar filter "isVariant(GEN[0]) & isHom(GEN[0]) & FILTER='PASS'" delly.chr18.all.vcf | less
 
-will look for any variants that occur in the first sample AND are homozygous AND where the FILTER column has a value of 'PASS'. Finally, try to construct the expression you would need to find the deletion we are looking for. You will need to use 'isRef' to test for samples that genotype reference.
+will look for any variants that occur in the first sample AND are homozygous AND where the FILTER column has a value of 'PASS' (like we did with 'awk' after using delly). Finally, try to construct the expression you would need to find the deletion we are looking for. You will need to use 'isRef' to test for samples that genotype reference.
 
 If you are unable to get it, [click here](command.txt) to see the command.
 
