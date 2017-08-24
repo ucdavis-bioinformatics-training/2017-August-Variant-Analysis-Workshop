@@ -31,7 +31,6 @@ Wednesday
 * [Genome Assembly and Annotation](wednesday/GenomeAssembly.pdf) (talk)
 * [Variant calling with Freebayes & Delly](wednesday/variant_calling)
 * [Files and Filetypes for Genomes/Annotation - vcf](tuesday/filetypes) (talk)
-* [Variant Effect Prediction](thursday/snpeff)
 
 
 
