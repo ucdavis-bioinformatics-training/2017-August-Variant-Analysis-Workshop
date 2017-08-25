@@ -131,9 +131,48 @@ name.col <- 4
 side <- "in"
 track.num <- 1
 RCircos.Gene.Connector.Plot(gene.list, track.num, side)
+```
 
+```
+## There is unsupported chromosome names in ideogram
+## and chromosomes are sorted in alphabetical order.
+```
+
+```
+## Not all labels will be plotted.
+```
+
+```
+## Type RCircos.Get.Gene.Name.Plot.Parameters()
+```
+
+```
+## to see the number of labels for each chromosome.
+```
+
+```r
 track.num <- 2
 RCircos.Gene.Name.Plot(gene.list, name.col, track.num, side)
+```
+
+```
+## There is unsupported chromosome names in ideogram
+## and chromosomes are sorted in alphabetical order.
+```
+
+```
+## Not all labels will be plotted.
+```
+
+```
+## Type RCircos.Get.Gene.Name.Plot.Parameters()
+```
+
+```
+## to see the number of labels for each chromosome.
+```
+
+```r
 # It's possible that some genes are not plotted because of the limit of plotting for each chromosome.
 
 # check plot parameters, if needed, they may be changed.
@@ -207,13 +246,13 @@ head(gene.expr)
 ```
 
 ```
-##       chromosome     start      stop gene.name CNV       logFC
-## 26382       chr8  45557140  45633523     LAMA3   1  0.28537435
-## 16745      chr25  26644242  26645181     OR1N1   4  0.44070268
-## 24901       chr7  49554448  49575979     PDE4A   2 -1.96633120
-## 12374       chr2  44055104  44062299    ZBTB48   2 -0.09416089
-## 22227       chr5  46341890  46351342      CTSK   2 -0.90510040
-## 1779        chr1 147833950 147848464     RMDN3   3  1.20871472
+##       chromosome    start     stop gene.name CNV       logFC
+## 26348       chr8 41149559 41172140     CLUL1   1 -1.51146016
+## 15444      chr23 20989139 21021271     PTAR1   5  2.44360408
+## 24054       chr6 84181611 84194476     CPSF6   6 -0.05571431
+## 27577      chrUn 41707453 41737729      LSP1   5  2.71004014
+## 18842       chr3 21787776 21818163    PMFBP1   6  2.99501280
+## 11708       chr2 10017031 10047732     BEND5   6  0.86105879
 ```
 
 ```r
@@ -278,7 +317,7 @@ Install R package "qqman" if it hasn't been done. The develop version of the pac
 ```r
 #biocLite("devtools")
 library(devtools)
-#install_github("stephenturner/qqman")
+install_github("stephenturner/qqman")
 library(qqman)
 
 # using the example data from qqman package
