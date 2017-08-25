@@ -37,6 +37,7 @@ Wednesday
 Thursday
 ----------
 
+* [Variant calling tools](thursday/variantcalling)
 * [Variant calling with GATK](wednesday/gatk)
 * [Variant Effect Prediction and Variant Filtering](thursday/snpeff)
 * [SNPs/CNVs]

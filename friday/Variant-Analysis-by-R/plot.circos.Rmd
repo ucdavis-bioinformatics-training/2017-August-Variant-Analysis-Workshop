@@ -189,7 +189,7 @@ Install R package "qqman" if it hasn't been done. The develop version of the pac
 ```{r message=FALSE, warning=FALSE}
 #biocLite("devtools")
 library(devtools)
-#install_github("stephenturner/qqman")
+install_github("stephenturner/qqman")
 library(qqman)
 
 # using the example data from qqman package
