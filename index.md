@@ -53,7 +53,7 @@ Friday
 Evaluation!
 ----------
 
-Please help us improve future workshops, for you and others, by filling out an [evaluation](https://goo.gl/).
+Please help us improve future workshops, for you and others, by filling out an [evaluation](https://goo.gl/forms/ZuiO1QMECho61kJY2).
 
 
 
