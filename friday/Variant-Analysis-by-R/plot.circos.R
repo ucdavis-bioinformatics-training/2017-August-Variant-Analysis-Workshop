@@ -36,7 +36,7 @@ RCircos.Set.Core.Components(cyto.info, chr.exclude, tracks.inside, tracks.outsid
 RCircos.Set.Plot.Area()
 RCircos.Chromosome.Ideogram.Plot()
 
-gene.label.data <- read.table(file="gene.label", sep="\t", header=F)
+gene.label.data <- read.table(file="https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2017-August-Variant-Analysis-Workshop/master/friday/Variant-Analysis-by-R/gene.label", sep="\t", header=F)
 colnames(gene.label.data) <- c("Chromosome", "chromStart", "chromEnd", "Gene")
 
 ## subset gene list, first remove genes that do not have gene symbols, because ENSEMBL IDs are too long in character.

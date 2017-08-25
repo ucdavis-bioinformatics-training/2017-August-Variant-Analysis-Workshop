@@ -54,7 +54,7 @@ RCircos.Chromosome.Ideogram.Plot()
 
 # plot gene labels, there are limits setup by default for the number of genes that can be plotted for each chromosome based on the size of the chromosomes. The parameter can be changed if necessary. However, plotting too many genes will have the risk of having gene symbols overlapping one another.
 
-gene.label.data <- read.table(file="gene.label", sep="\t", header=F)
+gene.label.data <- read.table(file="https://raw.githubusercontent.com/ucdavis-bioinformatics-training/2017-August-Variant-Analysis-Workshop/master/friday/Variant-Analysis-by-R/gene.label", sep="\t", header=F)
 
 # The format of the gene information:
 
@@ -159,9 +159,9 @@ RCircos.Ribbon.Plot(ribbon.data=ribbon.data, track.num=9, by.chromosome=FALSE, t
 # 4. GWAS data plotting
 Install R package "qqman" if it hasn't been done. The develop version of the package can be installed from the source on github.
 ```{r message=FALSE, warning=FALSE}
-biocLite("devtools")
+#biocLite("devtools")
 library(devtools)
-#install_github("stephenturner/qqman")
+install_github("stephenturner/qqman")
 library(qqman)
 
 # using the example data from qqman package
