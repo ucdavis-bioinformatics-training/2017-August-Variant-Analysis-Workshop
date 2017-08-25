@@ -2,7 +2,7 @@ Variant visualization using R
 ==============
 
 Dr. Jie (Jessie) Li
-Data Analysit
+Data Analyst
 
 
 Jessie's [R Code](Variant-Analysis-by-R/plot.circos.R)

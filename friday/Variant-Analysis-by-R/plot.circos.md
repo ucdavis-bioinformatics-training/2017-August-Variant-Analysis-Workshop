@@ -1,9 +1,3 @@
----
-output:
-  html_document:
-    keep_md: true
-  word_document: default
----
 Variant plotting in R - Some introductory materials
 ========================================================
 
@@ -22,7 +16,8 @@ Use the same command to get the number of ins, del and complex types. Verify the
 
 ## 1. simple pie chart
 The number of SNPs, MNPs, INS, DELs, and COMPLEX in the list of filtered variants by Freebayes (QUAL > 60).
-```{r message=FALSE, warning=FALSE}
+
+```r
 slices <- c(8539874, 137816, 407312, 470210, 324538)
 labels <- c("SNP", "MNP", "INS", "DEL", "COMPLEX")
 pct <- round(slices/sum(slices)*100, digits=2)
@@ -31,12 +26,17 @@ labels <- paste(labels, "%", sep="")
 pie(slices, labels=labels, col=rainbow(length(labels)), main="Different types of variants")
 ```
 
+![](plot.circos_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
+
 ## 2. histogram plot of the data above
-```{r message=FALSE, warning=FALSE}
+
+```r
 variants <- round(slices/sum(slices), digits=2) # turn the raw counts into proportions
 names(variants) <- c("SNP", "MNP", "INS", "DEL", "COMPLEX")
 barplot(variants, col="red", main="Different types of variants", xlab="Type of variant", ylab="Percentage")
 ```
+
+![](plot.circos_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
 ## 3. Pie and historgram 
 Now do the same thing but for the snpeff annotations, use the key search phrases in grep "prime_UTR", "inframe_insertion", "frameshift", "intergenic", "intron", "missense", "splice_", "stop_lost", "synonymous", "_gene_variant" [combined upstream/downstream gene variants].
@@ -45,7 +45,8 @@ Now do the same thing but for the snpeff annotations, use the key search phrases
 ## 1. Now, we are going to use a package "RCircos" to generate circos plot.
 First, install RCircos if haven't done it already 
 
-```{r message=FALSE, warning=FALSE}
+
+```r
 #source("http://bioconductor.org/biocLite.R")
 #biocLite("RCircos")
 #biocLite("IdeoViz")
@@ -54,20 +55,35 @@ library(RCircos)
 ```
 
 Download cytoband ideogram data from UCSC using package IdeoViz.
-```{r}
+
+```r
 ideo <- getIdeo("equCab2")
 ```
 
 Set up RCircos core components. One may plot both to the inside and outside of the ideogram track. Today, we are going to only plot tracks in the inside of the ideogram.
-```{r}
+
+```r
 chr.exclude <- NULL
 cyto.info <- ideo
 tracks.inside <- 10
 tracks.outside <- 0
 RCircos.Set.Core.Components(cyto.info, chr.exclude, tracks.inside, tracks.outside)
+```
 
+```
+## 
+## RCircos.Core.Components initialized.
+## Type ?RCircos.Reset.Plot.Parameters to see how to modify the core components.
+```
+
+```r
 # plot ideogram
 RCircos.Set.Plot.Area()
+```
+
+![](plot.circos_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+
+```r
 par(mai=c(0.25, 0.25, 0.25, 0.25));
 plot.new();
 plot.window(c(-2.5,2.5), c(-2.5, 2.5));
@@ -89,7 +105,19 @@ gene.label.data <- read.table(file="gene.label", sep="\t", header=F)
 # The format of the gene information:
 
 head(gene.label.data)
+```
 
+```
+##     V1     V2     V3                   V4
+## 1 chr1  11192  15975                SYCE1
+## 2 chr1  29518  67141 ENSECAT00000018774.1
+## 3 chr1  29524  71177 ENSECAT00000018811.1
+## 4 chr1 132226 143850               CYP2E1
+## 5 chr1 171785 172706 ENSECAT00000004254.1
+## 6 chr1 183830 184742 ENSECAT00000004598.1
+```
+
+```r
 # The column names of gene information should be set as following.
 
 colnames(gene.label.data) <- c("Chromosome", "chromStart", "chromEnd", "Gene")
@@ -110,7 +138,47 @@ RCircos.Gene.Name.Plot(gene.list, name.col, track.num, side)
 
 # check plot parameters, if needed, they may be changed.
 RCircos.Get.Gene.Name.Plot.Parameters() 
+```
 
+```
+##    chromosomes maxLabels startLoc endLoc labelWidth
+## 1         chr1        12        1   6195        500
+## 2         chr2         8     6495  10523        500
+## 3         chr3         7    10823  14806        500
+## 4         chr4         7    15106  18725        500
+## 5         chr5         6    19025  22348        500
+## 6         chr6         5    22648  25471        500
+## 7         chr7         6    25771  29056        500
+## 8         chr8         6    29356  32491        500
+## 9         chr9         5    32791  35577        500
+## 10        chrM         0    35877  35877        500
+## 11        chrX         8    36177  40315        500
+## 12       chr10         5    40615  43414        500
+## 13       chr11         4    43714  45758        500
+## 14       chr12         2    46058  47161        500
+## 15       chr13         2    47461  48880        500
+## 16       chr14         6    49180  52310        500
+## 17       chr15         6    52610  55662        500
+## 18       chr16         5    55962  58875        500
+## 19       chr17         5    59175  61866        500
+## 20       chr18         5    62166  64917        500
+## 21       chr19         3    65217  67217        500
+## 22       chr20         4    67517  69655        500
+## 23       chr21         3    69955  71880        500
+## 24       chr22         3    72180  73844        500
+## 25       chr23         3    74144  76002        500
+## 26       chr24         3    76302  77860        500
+## 27       chr25         2    78160  79478        500
+## 28       chr26         2    79778  81174        500
+## 29       chr27         2    81474  82806        500
+## 30       chr28         3    83106  84645        500
+## 31       chr29         2    84945  86067        500
+## 32       chr30         2    86367  87370        500
+## 33       chr31         1    87670  88502        500
+## 34       chrUn         7    88802  92718        500
+```
+
+```r
 # add extra tracks -- Histogram plot of CNV data. Any extra track will depend on the types of data one wants to include in the plot. The required information is the location of what will be plotted in the genome: chromosome number, start and stop position.
 gene.list$CNV <- floor(runif(n=30, min=1, max=7))
 data.col <- 5 # the CNV column
@@ -122,6 +190,13 @@ RCircos.Histogram.Plot(gene.list, data.col, track.num, side, is.sorted=FALSE, mi
 # add extra tracks -- Scatter plot of RNASeq results
 gene.expr <- gene.list
 colnames(gene.expr)
+```
+
+```
+## [1] "Chromosome" "chromStart" "chromEnd"   "Gene"       "CNV"
+```
+
+```r
 colnames(gene.expr) <- c("chromosome", "start", "stop", "gene.name", "CNV")
 
 # generate random logFC data of 30 in length between -3 and 3
@@ -129,7 +204,19 @@ gene.expr$logFC <- runif(30, -3, 3)
 
 # first three columns are required for plotting and one more column that corresponds to the data to plot 
 head(gene.expr)
+```
 
+```
+##       chromosome     start      stop gene.name CNV       logFC
+## 26382       chr8  45557140  45633523     LAMA3   1  0.28537435
+## 16745      chr25  26644242  26645181     OR1N1   4  0.44070268
+## 24901       chr7  49554448  49575979     PDE4A   2 -1.96633120
+## 12374       chr2  44055104  44062299    ZBTB48   2 -0.09416089
+## 22227       chr5  46341890  46351342      CTSK   2 -0.90510040
+## 1779        chr1 147833950 147848464     RMDN3   3  1.20871472
+```
+
+```r
 data.col <- 6
 track.num <- 6
 side <- "in"
@@ -181,12 +268,14 @@ RCircos.Link.Plot(link.data, track.num, TRUE, is.sorted=FALSE)
 ribbon.data <- link.data
 colnames(ribbon.data) <- c("chromA", "chromStartA", "chromEndA", "chromB", "chromStartB", "chromEndB")
 RCircos.Ribbon.Plot(ribbon.data=ribbon.data, track.num=9, by.chromosome=FALSE, twist=FALSE, is.sorted=FALSE)
-
 ```
+
+![](plot.circos_files/figure-html/unnamed-chunk-5-2.png)<!-- -->
 
 # 4. GWAS data plotting
 Install R package "qqman" if it hasn't been done. The develop version of the package can be installed from the source on github.
-```{r message=FALSE, warning=FALSE}
+
+```r
 #biocLite("devtools")
 library(devtools)
 #install_github("stephenturner/qqman")
@@ -194,10 +283,35 @@ library(qqman)
 
 # using the example data from qqman package
 head(gwasResults)
+```
+
+```
+##   SNP CHR BP         P
+## 1 rs1   1  1 0.9148060
+## 2 rs2   1  2 0.9370754
+## 3 rs3   1  3 0.2861395
+## 4 rs4   1  4 0.8304476
+## 5 rs5   1  5 0.6417455
+## 6 rs6   1  6 0.5190959
+```
+
+```r
 manhattan(gwasResults)
+```
+
+![](plot.circos_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+
+```r
 # use colors for chromosomes
 manhattan(gwasResults, col=c("red", "blue", "green"))
+```
+
+![](plot.circos_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
+
+```r
 # change default horizontal line position
 manhattan(gwasResults, suggestiveline=-log10(1e-6), genomewideline=-log10(1e-8), col=c("red", "blue", "green"))
 ```
+
+![](plot.circos_files/figure-html/unnamed-chunk-6-3.png)<!-- -->
 
