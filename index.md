@@ -31,27 +31,25 @@ Wednesday
 * [Files and Filetypes for Genomes/Annotation - vcf](tuesday/filetypes) (talk)
 
 
-
 Thursday
 ----------
 
 * [Variant calling tools](thursday/variantcalling)
 * [Variant calling with GATK](wednesday/gatk)
 * [Variant Effect Prediction and Variant Filtering](thursday/snpeff)
-* [SNPs/CNVs]
 
 
 Friday
 ----------
 
 * [Intro to R](friday/Intro2R.md)
-* [Advanced Sequencing and Wet Lab Topics, Lutz Froenicke](talk)
+* [Advanced Sequencing and Wet Lab Topics, Lutz Froenicke](friday/VariantAnalysisBioinformaticsWorkshop_082017.pdf) (talk)
 * [Variant Analysis with R](friday/Variant-Analysis-by-R.md)
 * [GWAS/Cancer-Seq](friday/GWAS_Cancer.pdf)
 * [Closing thoughts](friday/Closing_Thoughts.pdf)
 
 Evaluation!
-----------
+-----------
 
 Please help us improve future workshops, for you and others, by filling out an [evaluation](https://goo.gl/forms/ZuiO1QMECho61kJY2).
 
